@@ -1,0 +1,31 @@
+//
+//  PrefixHeader.pch
+//  GongHuo
+//
+//  Created by TongLi on 2017/7/1.
+//  Copyright © 2017年 TongLi. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+/*fa354e*/
+#define kColor(X,Y,Z,A) [UIColor colorWithRed:X/255.0 green:Y/255.0 blue:Z/255.0 alpha:A]
+#define kMainColor [UIColor colorWithRed:250/255.0 green:53/255.0 blue:78/255.0 alpha:1]
+#define k333333Color [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1]
+#define k666666Color [UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1]
+#define k999999Color [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1]
+
+
+#define kccccccColor [UIColor colorWithRed:204/255.0 green:204/255.0 blue:204/255.0 alpha:1]
+
+
+#define kScreenW [UIScreen mainScreen].bounds.size.width
+#define kScreenH [UIScreen mainScreen].bounds.size.height
+
+
+
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* PrefixHeader_pch */
