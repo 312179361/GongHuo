@@ -12,6 +12,7 @@
 //第一个AlertView
 @property(nonatomic,assign)NSInteger selectShelfInt;//选择下架原因 0不代理 1无货 2其他
 
+@property (weak, nonatomic) IBOutlet UIImageView *backImgView;
 
 @end
 
@@ -20,6 +21,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.backImgView.image = self.backImg;
+    
     self.alertOneView.hidden = YES;
     self.alertTwoView.hidden = YES;
     
@@ -44,7 +48,7 @@
 #pragma mark - 第一个alertView显示 -
 - (void)showAlertViewOne {
     self.alertOneView.hidden = NO;
-    //默认选择不代理
+    //默认选择 不代理
     self.selectShelfInt = 0;
     
 }
@@ -53,16 +57,28 @@
 - (IBAction)noDelegateBtnAction:(UIButton *)sender {
     if (self.selectShelfInt != 0) {
         self.selectShelfInt = 0;
+        //更改UI
+        [self.noDelegateBtn setImage:[UIImage imageNamed:@"btn_select"] forState:UIControlStateNormal];
+        [self.stockBtn setImage:[UIImage imageNamed:@"btn_normal"] forState:UIControlStateNormal];
+        [self.otherBtn setImage:[UIImage imageNamed:@"btn_normal"] forState:UIControlStateNormal];
     }
 }
 - (IBAction)stockBtnAction:(UIButton *)sender {
     if (self.selectShelfInt != 1) {
         self.selectShelfInt = 1;
+        //更改UI
+        [self.noDelegateBtn setImage:[UIImage imageNamed:@"btn_normal"] forState:UIControlStateNormal];
+        [self.stockBtn setImage:[UIImage imageNamed:@"btn_select"] forState:UIControlStateNormal];
+        [self.otherBtn setImage:[UIImage imageNamed:@"btn_normal"] forState:UIControlStateNormal];
     }
 }
 - (IBAction)otherBtnAction:(UIButton *)sender {
     if (self.selectShelfInt != 2) {
         self.selectShelfInt = 2;
+        //更改UI
+        [self.noDelegateBtn setImage:[UIImage imageNamed:@"btn_normal"] forState:UIControlStateNormal];
+        [self.stockBtn setImage:[UIImage imageNamed:@"btn_normal"] forState:UIControlStateNormal];
+        [self.otherBtn setImage:[UIImage imageNamed:@"btn_select"] forState:UIControlStateNormal];
     }
 }
 //确定按钮

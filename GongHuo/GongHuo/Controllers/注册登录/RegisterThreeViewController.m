@@ -39,6 +39,10 @@
     self.isSelectUserProtocol = YES;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    [SVProgressHUD dismiss];
+}
 
 #pragma mark - 注册 -
 - (IBAction)registerButtonAction:(UIButton *)sender {
@@ -85,9 +89,12 @@
 - (IBAction)agreeUserProtocol:(UIButton *)sender {
     self.isSelectUserProtocol = !self.isSelectUserProtocol;
     if (self.isSelectUserProtocol == YES) {
-        self.selectUserProtocolButton.backgroundColor = kMainColor;
+        [self.selectUserProtocolButton setImage:[UIImage imageNamed:@"userProtocol_select.png"] forState:UIControlStateNormal];
+//        self.selectUserProtocolButton.backgroundColor = kMainColor;
     }else {
-        self.selectUserProtocolButton.backgroundColor = k999999Color;
+        [self.selectUserProtocolButton setImage:[UIImage imageNamed:@"userProtocol_normal.png"] forState:UIControlStateNormal];
+
+//        self.selectUserProtocolButton.backgroundColor = k999999Color;
     }
 }
 

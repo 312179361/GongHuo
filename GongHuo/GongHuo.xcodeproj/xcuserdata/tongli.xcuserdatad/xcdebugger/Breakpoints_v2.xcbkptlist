@@ -36,12 +36,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GongHuo/Utils/Manager.m"
-            timestampString = "529990719.207073"
+            timestampString = "531199500.501537"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "737"
-            endingLineNumber = "737"
-            landmarkName = "-httpAddShopWithMid:withName:withDeveloperName:withAreaid:withAddress:withAddShopSuccess:withAddShopFail:"
+            startingLineNumber = "700"
+            endingLineNumber = "700"
+            landmarkName = "-httpAddUserWithMemberInfo:withPostionType:withTureName:withMobile:withCardPeople:withCard:withAddUserSuccess:withAddUserFail:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GongHuo/Other/UIImageView+ImageViewCategory.m"
+            timestampString = "530790092.273545"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "-setWebImageURLWithImageUrlStr:withErrorImage:withIsCenter:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -52,12 +68,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GongHuo/Utils/Manager.m"
-            timestampString = "529990719.207659"
+            timestampString = "531199500.501655"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "744"
-            endingLineNumber = "744"
-            landmarkName = "-httpAddShopWithMid:withName:withDeveloperName:withAreaid:withAddress:withAddShopSuccess:withAddShopFail:"
+            startingLineNumber = "1081"
+            endingLineNumber = "1081"
+            landmarkName = "-analyzeMyNewsWithJsonArr:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -68,12 +84,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GongHuo/Utils/Manager.m"
-            timestampString = "529990719.208446"
+            timestampString = "531199500.501721"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "911"
-            endingLineNumber = "911"
-            landmarkName = "-httpNewsDetailWithICode:withNewsDetailSuccess:withNewsDetailFail:"
+            startingLineNumber = "1078"
+            endingLineNumber = "1078"
+            landmarkName = "-analyzeMyNewsWithJsonArr:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -84,12 +100,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GongHuo/Utils/Manager.m"
-            timestampString = "530244535.586574"
+            timestampString = "531199500.501783"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "-httpCheckListWithA_SP_ID:withMobile:withStatus:withIsAdmin:withUserID:withPageIndex:withCheckListSuccess:withCheckListFail:"
+            startingLineNumber = "449"
+            endingLineNumber = "449"
+            landmarkName = "-httpProductDosageWithDosageSuccess:withDosageFail:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -100,12 +116,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GongHuo/Utils/Manager.m"
-            timestampString = "530244572.754883"
+            timestampString = "531199500.501845"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "-httpCheckListWithA_SP_ID:withMobile:withStatus:withIsAdmin:withUserID:withPageIndex:withCheckListSuccess:withCheckListFail:"
+            startingLineNumber = "457"
+            endingLineNumber = "457"
+            landmarkName = "-httpSupplyHiddenWithAid:withHiddenSuccess:withHiddenFail:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GongHuo/Utils/Manager.m"
+            timestampString = "531199500.501907"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "477"
+            endingLineNumber = "477"
+            landmarkName = "-httpIsNewOrderWithAFID:withIsNewSuccess:withIsNewFail:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GongHuo/Utils/NetManager.m"
+            timestampString = "531134656.532643"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "-postRequestWithURL:withParameters:withResponseType:withContentTypes:withSuccessResult:withError:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "UploadProductModel.h"
 @interface SelectProductImageViewController : UIViewController
-
+@property(nonatomic,strong)UploadProductModel *tempUploadProductModel;
 @end

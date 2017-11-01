@@ -7,7 +7,7 @@
 //
 
 #import "SendSuccessViewController.h"
-
+#import "SVProgressHUD.h"
 @interface SendSuccessViewController ()
 
 @end
@@ -22,6 +22,12 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshOrderList" object:self userInfo:@{@"1":@"YES",@"3":@"YES"}];
 
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
+
 //继续发货
 - (IBAction)continueSendButtonAction:(UIButton *)sender {
     [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];

@@ -22,9 +22,9 @@
 
 - (NSString *)mainUrl {
     //本地
-    return @"http://17564j85u1.iok.la/";
+//    return @"http://ybsat.vicp.io/";
     //线上
-//    return @"http://apigh.ertj.cn/";
+    return @"https://apigh.nongyao001.com/";
     
 }
 
@@ -87,6 +87,11 @@
     return @"supply.dosage";
 }
 
+//删除修改记录，
+- (NSString *)supply_hide_Base {
+    return @"supply.hide";
+}
+
 #pragma mark - 订单 -
 //订单列表
 - (NSString *)order_list_Base {
@@ -110,6 +115,13 @@
     return @"order.invoice";
 }
 
+//是否有新订单
+- (NSString *)order_fresh_Base {
+    return @"order.fresh";
+}
+
+
+
 #pragma mark - 人员管理 -
 //人员管理列表
 - (NSString *)user_list_Base {
@@ -125,6 +137,13 @@
     return @"user.create";
 
 }
+
+//是否允许添加老板
+- (NSString *)user_boss_Base {
+    return @"user.boss";
+}
+
+
 
 
 #pragma mark - 登录 -
@@ -182,9 +201,12 @@
 }
 
 
-#pragma mark - 图片上传 -
+#pragma mark - 图片上传 和 删除-
 - (NSString *)uploadImage_Base {
     return @"check.img";
+}
+- (NSString *)deleteImage_Base {
+    return @"check.del";
 }
 
 #pragma mark - 其他 -

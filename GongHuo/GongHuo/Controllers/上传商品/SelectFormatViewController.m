@@ -23,17 +23,19 @@
 @property (weak, nonatomic) IBOutlet UIImageView *selectJianImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *selectDunImageView;
 
+//暂时选择的规格
+@property (nonatomic,strong)NSString *selectStandardOne;
+@property (nonatomic,strong)NSString *selectStandardTwo;
+
 @end
 
 @implementation SelectFormatViewController
 - (IBAction)backButtonOneAction:(UIButton *)sender {
-    //刷新上个页面的规格UI
-    self.refreshFormatUI();
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 - (IBAction)backButtonTwoAction:(UIButton *)sender {
-    //刷新上个页面的规格UI
-    self.refreshFormatUI();
+
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -42,6 +44,10 @@
     // Do any additional setup after loading the view.
     
     self.backImageView.image = self.backImage;
+    
+    //给要选择的规格附上初值
+    self.selectStandardOne = self.uploadModel.productStandardOne;
+    self.selectStandardTwo = self.uploadModel.productStandardTwo;
     
     if (self.formatType == 0) {
         self.selectFormatViewOne.hidden = NO;
@@ -54,32 +60,39 @@
         [self updateTwoSelectView];
         
     }
-    
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
     
 }
 
 #pragma mark - 第一个type的选择 -
 - (IBAction)daiTapAction:(UITapGestureRecognizer *)sender {
-    self.uploadModel.productStandardOne = @"袋";
+    self.selectStandardOne = @"袋";
     [self updateOneSelectView];
 }
 
 - (IBAction)pingTapAction:(UITapGestureRecognizer *)sender {
-    self.uploadModel.productStandardOne = @"瓶";
+    
+    self.selectStandardOne = @"瓶";
     [self updateOneSelectView];
 }
 
 - (IBAction)heTapAction:(UITapGestureRecognizer *)sender {
-    self.uploadModel.productStandardOne = @"盒";
+    self.selectStandardOne = @"盒";
     [self updateOneSelectView];
 }
 
 - (IBAction)tongTapAction:(UITapGestureRecognizer *)sender {
-    self.uploadModel.productStandardOne = @"桶";
+    self.selectStandardOne = @"桶";
     [self updateOneSelectView];
 }
 
 - (IBAction)oneEnterAction:(UIButton *)sender {
+    //给模型赋值
+    self.uploadModel.productStandardOne = self.selectStandardOne;
     //刷新上个页面的规格UI
     self.refreshFormatUI();
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -87,15 +100,18 @@
 
 #pragma mark - 第二个type的选择 -
 - (IBAction)jianTapAction:(UITapGestureRecognizer *)sender {
-    self.uploadModel.productStandardTwo = @"件";
+    self.selectStandardTwo = @"件";
     [self updateTwoSelectView];
 }
 - (IBAction)dunTapAction:(UITapGestureRecognizer *)sender {
-    self.uploadModel.productStandardTwo = @"吨";
+    self.selectStandardTwo = @"吨";
     [self updateTwoSelectView];
 }
 
 - (IBAction)twoEnterAction:(UIButton *)sender {
+    //给模型赋值
+    self.uploadModel.productStandardTwo = self.selectStandardTwo;
+
     //刷新上个页面的规格UI
     self.refreshFormatUI();
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -108,16 +124,16 @@
     self.selectHeImageView.image = [UIImage imageNamed:@"btn_normal.png"];
     self.selectTongImageView.image = [UIImage imageNamed:@"btn_normal.png"];
 
-    if ([self.uploadModel.productStandardOne isEqualToString:@"袋"]) {
+    if ([self.selectStandardOne isEqualToString:@"袋"]) {
         self.selectDaiImageView.image = [UIImage imageNamed:@"btn_select.png"];
     }
-    if ([self.uploadModel.productStandardOne isEqualToString:@"瓶"]) {
+    if ([self.selectStandardOne isEqualToString:@"瓶"]) {
         self.selectPingImageView.image = [UIImage imageNamed:@"btn_select.png"];
     }
-    if ([self.uploadModel.productStandardOne isEqualToString:@"盒"]) {
+    if ([self.selectStandardOne isEqualToString:@"盒"]) {
         self.selectHeImageView.image = [UIImage imageNamed:@"btn_select.png"];
     }
-    if ([self.uploadModel.productStandardOne isEqualToString:@"桶"]) {
+    if ([self.selectStandardOne isEqualToString:@"桶"]) {
         self.selectTongImageView.image = [UIImage imageNamed:@"btn_select.png"];
     }
     
@@ -127,10 +143,10 @@
     self.selectJianImageView.image = [UIImage imageNamed:@"btn_normal.png"];
     self.selectDunImageView.image = [UIImage imageNamed:@"btn_normal.png"];
 
-    if ([self.uploadModel.productStandardTwo isEqualToString:@"件"]) {
+    if ([self.selectStandardTwo isEqualToString:@"件"]) {
         self.selectJianImageView.image = [UIImage imageNamed:@"btn_select.png"];
     }
-    if ([self.uploadModel.productStandardTwo isEqualToString:@"吨"]) {
+    if ([self.selectStandardTwo isEqualToString:@"吨"]) {
         self.selectDunImageView.image = [UIImage imageNamed:@"btn_select.png"];
     }
 

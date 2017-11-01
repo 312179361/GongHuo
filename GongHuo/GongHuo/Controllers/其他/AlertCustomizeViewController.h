@@ -18,6 +18,10 @@ typedef NS_ENUM(NSInteger , AlertTypeInt) {
 typedef void(^EnterBlock)(id enterBLock);
 
 @interface AlertCustomizeViewController : UIViewController
+//背景图片
+@property (nonatomic,strong)UIImage *backImg;
+
+
 //type编号，是哪一个alertView
 @property(nonatomic,assign)AlertTypeInt alertTypeInt;
 //确定block

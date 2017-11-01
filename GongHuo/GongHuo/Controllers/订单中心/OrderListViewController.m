@@ -16,7 +16,10 @@
 #import "OrderListTwoTableViewCell.h"
 #import "SendDetailViewController.h"
 #import "SendCerViewController.h"
+#import "MJRefresh.h"
+#import "NewsViewController.h"
 @interface OrderListViewController ()<UITableViewDataSource,UITableViewDelegate>
+
 @property(nonatomic,strong)NSMutableDictionary *isHttpDic;//是否要请求数据(因为有三个类型，所以要用字典)主要用于别的界面发送通知修改这个界面的内容
 
 @property (weak, nonatomic) IBOutlet UITableView *orderListTableView;
@@ -25,10 +28,11 @@
 @property (weak, nonatomic) IBOutlet LineButton *headTwoButton;
 @property (weak, nonatomic) IBOutlet LineButton *headThreeButton;
 
-
 //数据源
 @property(nonatomic,strong)NSMutableDictionary *orderListDataSourceDic;
 @property(nonatomic,strong)NSString *currentType; //当前类型 0待接单 1待发货 3已完成
+@property (nonatomic,strong)NSMutableDictionary *currentPageDic;//当前页数字典
+
 //定时器
 @property(nonatomic,strong)NSTimer *tempTimer;
 @property(nonatomic,assign)BOOL isTimerRun;//定时器是否要运行
@@ -57,24 +61,34 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)rightBarButtonAction:(UIBarButtonItem *)sender {
-    
+    NewsViewController *newsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"newsViewController"];
+    [self.navigationController pushViewController:newsVC animated:YES];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    // 让cell自适应高度
+    self.orderListTableView.rowHeight = UITableViewAutomaticDimension;
+    //设置估算高度
+    self.orderListTableView.estimatedRowHeight = 44;
+    
     self.currentType = @"0";//默认类型为0，即待接单
     self.isHttpDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"YES",@"0",@"YES",@"1",@"YES",@"3", nil];//首次进入肯定要请求数据
+    
+    //默认都是第一页
+    self.currentPageDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1",@"9",@"1",@"0",@"1",@"1",@"1",@"2",nil];
+    //添加下拉刷新和上拉加载
+    [self downPushRefresh];
+    [self upPushReload];
     
     //创建定时器。
     self.tempTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerAction:) userInfo:nil repeats:YES];
     //但是要先暂停
     [self.tempTimer setFireDate:[NSDate distantFuture]];
     
-    // 让cell自适应高度
-    self.orderListTableView.rowHeight = UITableViewAutomaticDimension;
-    //设置估算高度
-    self.orderListTableView.estimatedRowHeight = 44;
+    
     
     /*
     
@@ -105,24 +119,55 @@
     
 }
 
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     //请求列表数据
     if ([[self.isHttpDic objectForKey:self.currentType] isEqualToString:@"YES"]) {
         //需要请求数据
-        [self httpSupplyListWithStatus:self.currentType withPages:1];
+        [self httpOrderListWithStatus:self.currentType withPages:1];
     }
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
+    [SVProgressHUD dismiss];
+    
     //页面消失，定时器释放
     [self.tempTimer invalidate];
-
 }
+
+#pragma mark - 下拉刷新 上拉加载 -
+//下拉刷新
+- (void)downPushRefresh {
+    [self.orderListTableView addHeaderWithCallback:^{
+        NSLog(@"下拉刷新啦");
+        //不管ishttp是否为YES，都要请求最新列表信息
+        [self httpOrderListWithStatus:self.currentType withPages:1];
+
+    }];
+    
+}
+//上拉加载
+- (void)upPushReload {
+    
+    [self.orderListTableView addFooterWithCallback:^{
+        NSLog(@"上拉加载啦");
+        //现在第几页
+        NSInteger tempCurrentPage = [[self.currentPageDic objectForKey:self.currentType] integerValue] ;
+        //总共有几页
+        
+        NSInteger totalPage = [[[self.orderListDataSourceDic objectForKey:self.currentType] objectForKey:@"pages"] integerValue];
+        
+        if (tempCurrentPage < totalPage) {
+            //进行加载
+            [self httpOrderListWithStatus:self.currentType withPages:tempCurrentPage+1];
+            
+        }else {
+            [self.orderListTableView footerEndRefreshing];
+        }
+    }];
+}
+
 
 #pragma mark - 网络请求数据源 -
 - (NSMutableDictionary *)orderListDataSourceDic {
@@ -133,19 +178,38 @@
 }
 
 //网络请求
-- (void)httpSupplyListWithStatus:(NSString *)status withPages:(NSInteger)page {
+- (void)httpOrderListWithStatus:(NSString *)status withPages:(NSInteger)pages {
     Manager *manager = [Manager shareInstance];
     
-    [manager httpOrderListWithAFID:manager.memberInfoModel.l_s_id withAStatus:status withPageIndex:page withOrderListSuccess:^(id successResult) {
-        //模型赋值
-        [self.orderListDataSourceDic setValue:successResult forKey:status];
+    [manager httpOrderListWithAFID:manager.memberInfoModel.l_s_id withAStatus:status withPageIndex:pages withOrderListSuccess:^(id successResult) {
         
+        if (pages == 1) {
+            //刷新
+            //请求后，标记已经刷新过了
+            [self.isHttpDic setValue:@"NO" forKey:status];
+            //刷新了，就要重置currentPage
+            [self.currentPageDic setValue:@"1" forKey:status];
+            //数据源
+            [self.orderListDataSourceDic setValue:successResult forKey:status];
+            
+            [self.orderListTableView headerEndRefreshing];//取消头部刷新效果
+        }else {
+            //加载
+            //在原来的基础上增加数据源
+            //得到对应的数据源
+            NSMutableDictionary *tempDic = [self.orderListDataSourceDic objectForKey:status];
+            NSMutableArray *tempData = [tempDic objectForKey:@"list"];
+            [tempData addObjectsFromArray:[successResult objectForKey:@"list"]];
+            [tempDic setValue:[successResult objectForKey:@"pages"] forKey:@"pages"];
+            
+            [self.orderListTableView footerEndRefreshing];//取消尾部加载效果
+            //加载要刷新currentPage
+            [self.currentPageDic setValue:[NSString stringWithFormat:@"%ld",pages] forKey:status];
+            
+        }
         
-        //请求成功后，将对应的isHttpDic变为NO
-        [self.isHttpDic setObject:@"NO" forKey:status];
-        
-        //刷新列表
         [self.orderListTableView reloadData];
+        
         //请求成功，开启定时器
         [self.tempTimer setFireDate:[NSDate distantPast]];
         
@@ -230,7 +294,8 @@
         
         //请求信息。查看一下原来有没有信息，是否要刷新
         if ([self.orderListDataSourceDic objectForKey:@"0"] == nil || [[self.isHttpDic objectForKey:@"0"] isEqualToString:@"YES"]) {
-            [self httpSupplyListWithStatus:self.currentType withPages:1];
+
+            [self httpOrderListWithStatus:self.currentType withPages:1];
         }else {
             [self.orderListTableView reloadData];
         }
@@ -254,7 +319,7 @@
         
         //请求信息。查看一下原来有没有信息
         if ([self.orderListDataSourceDic objectForKey:@"1"] == nil || [[self.isHttpDic objectForKey:@"1"] isEqualToString:@"YES"]) {
-            [self httpSupplyListWithStatus:self.currentType withPages:1];
+            [self httpOrderListWithStatus:self.currentType withPages:1];
         }else {
             [self.orderListTableView reloadData];
         }
@@ -274,7 +339,7 @@
         
         //请求信息。查看一下原来有没有信息
         if ([self.orderListDataSourceDic objectForKey:@"3"] == nil || [[self.isHttpDic objectForKey:@"3"] isEqualToString:@"YES"]) {
-            [self httpSupplyListWithStatus:self.currentType withPages:1];
+            [self httpOrderListWithStatus:self.currentType withPages:1];
         }else {
             [self.orderListTableView reloadData];
         }
@@ -376,7 +441,7 @@
         [alertM showAlertViewWithTitle:@"恭喜你，接单成功" withMessage:nil actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:^(NSInteger actionBlockNumber) {
             
             //接单成功，要请求刷新 待接单列表，和 标记待发货要刷新
-            [self httpSupplyListWithStatus:self.currentType withPages:1];
+            [self httpOrderListWithStatus:self.currentType withPages:1];
             
             //标记待发货要刷新
             [self.isHttpDic setValue:@"YES" forKey:@"1"];

@@ -23,9 +23,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    [SVProgressHUD dismiss];
+}
+
 - (IBAction)enterButtonAction:(UIButton *)sender {
     Manager *manager = [Manager shareInstance];
     AlertManager *alertM = [AlertManager shareIntance];

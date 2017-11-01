@@ -10,12 +10,10 @@
 #import "UIImageView+ImageViewCategory.h"
 @implementation MessageListTableViewCell
 - (void)updateMessageListWithModel:(NewsModel *)newsModel {
-//    [self.messageImageView setWebImageURLWithImageUrlStr:newsModel.i_icon_path withErrorImage:nil withIsCenter:YES];
+    [self.messageImageView setWebImageURLWithImageUrlStr:newsModel.i_icon_path withErrorImage:nil withIsCenter:YES];
 
     self.messageLabel.text = newsModel.i_title;
     self.messageTimeLabel.text = newsModel.i_time_create;
-    
-    
     
 }
 

@@ -10,4 +10,11 @@
 
 @implementation UploadProductModel
 
+- (NSMutableArray *)productImageArr {
+    if (_productImageArr == nil) {
+        self.productImageArr = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"", nil];
+    }
+    return _productImageArr;
+}
+
 @end

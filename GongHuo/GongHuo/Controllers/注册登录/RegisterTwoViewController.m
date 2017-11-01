@@ -50,11 +50,14 @@
     
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
     //定制器取消
     [self endTimeDown];
 }
+
+
 
 #pragma mark - 请选择职位 -
 - (IBAction)positionButtonAction:(UIButton *)sender {
@@ -63,6 +66,7 @@
     [alertM showActionSheetViewWithTitle:@"请选择职位" withMessage:nil actionTitleArr:self.positionArr withViewController:self withReturnCodeBlock:^(NSInteger actionBlockNumber) {
         //给标题赋值
         [sender setTitle:self.positionArr[actionBlockNumber] forState:UIControlStateNormal];
+        [sender setTitleColor:k333333Color forState:UIControlStateNormal];
         //记录一下选择的职位
         if (self.selectPostionInt != actionBlockNumber+1) {
             self.selectPostionInt = actionBlockNumber+1;//因为actionBlockNumber是从0开始的
@@ -95,7 +99,7 @@
     self.sendCodeButton.enabled = YES;
     [self.sendCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     //背景色变红
-    self.sendCodeButton.backgroundColor = kMainColor;
+    self.sendCodeButton.backgroundColor = kCodeBtnColor;
     
 }
 - (void)timerAction:(NSTimer *)timer {
@@ -136,7 +140,8 @@
 #pragma mark - 下一步 -
 //下一步
 - (IBAction)nextButtonAction:(UIButton *)sender {
-    
+//    [self performSegueWithIdentifier:@"registerTwoToThreeVC" sender:nil];
+
     
     AlertManager *alertM = [AlertManager shareIntance];
     Manager *manager = [Manager shareInstance];
@@ -184,6 +189,7 @@
         //信息没有填写完整
         [alertM showAlertViewWithTitle:errorMsg withMessage:nil actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:nil];
     }
+
 }
 
 - (void)didReceiveMemoryWarning {

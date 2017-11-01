@@ -34,6 +34,12 @@
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+    
+}
+
 //确认修改
 - (IBAction)enterMotifyAction:(UIButton *)sender {
     Manager *manager = [Manager shareInstance];

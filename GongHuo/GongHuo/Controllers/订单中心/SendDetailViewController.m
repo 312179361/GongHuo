@@ -47,6 +47,11 @@
     [self updateViewOne];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
+
 - (void)updateViewOne {
     [self.productImageView setWebImageURLWithImageUrlStr:self.tempOrderListModel.img withErrorImage:nil withIsCenter:YES];
     

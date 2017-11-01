@@ -9,10 +9,16 @@
 #import "NewsDetailViewController.h"
 #import "Manager.h"
 @interface NewsDetailViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *newsTitleLabel;
+@property (weak, nonatomic) IBOutlet UIWebView *newsWebView;
+@property (weak, nonatomic) IBOutlet UILabel *newsTimeLabel;
 
 @end
 
 @implementation NewsDetailViewController
+- (IBAction)leftBarButtonAction:(UIBarButtonItem *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -22,10 +28,25 @@
     Manager *manager = [Manager shareInstance];
     [manager httpNewsDetailWithICode:self.tempNewsModel.i_code withNewsDetailSuccess:^(id successResult) {
         
+        [self updateViewUIWithDateDic:[[successResult objectForKey:@"data"] objectAtIndex:0]];
+        
     } withNewsDetailFail:^(NSString *failResultStr) {
         
     }];
     
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
+
+- (void)updateViewUIWithDateDic:(NSDictionary *)dateDic {
+    self.newsTitleLabel.text = [dateDic objectForKey:@"i_title"];
+    self.newsTimeLabel.text = [dateDic objectForKey:@"i_time_create"];
+    
+    [self.newsWebView loadHTMLString:[dateDic objectForKey:@"content"] baseURL:nil];
+
 }
 
 - (void)didReceiveMemoryWarning {

@@ -10,55 +10,75 @@
 #import "PeopleManagerTableViewCell.h"
 #import "AddPeopleViewController.h"
 #import "Manager.h"
+#import "MJRefresh.h"
+#import "NewsViewController.h"
 @interface PeopleManagerViewController ()<UITableViewDataSource,UITableViewDelegate>
+@property(nonatomic,assign)BOOL isHttp;//标记是否要刷新
+
+@property (weak, nonatomic) IBOutlet UILabel *factoryNameLabel;
+
 @property (weak, nonatomic) IBOutlet UITableView *peopleMangerTableView;
 @property(nonatomic,strong)NSMutableArray *userListDataSourceArr;
+
 @end
 
 @implementation PeopleManagerViewController
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        //通知，刷新列表
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshPeopleListNotiAction:) name:@"refreshPeopleListNoti" object:nil];
+        
+    }
+    return self;
+}
+
+- (void)refreshPeopleListNotiAction:(NSNotification *)noti {
+    //标记需要刷新
+    self.isHttp = YES;
+}
+
 - (IBAction)leftBarButtonAction:(UIBarButtonItem *)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
+- (IBAction)rightBarButtonAction:(UIBarButtonItem *)sender {
+    NewsViewController *newsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"newsViewController"];
+    [self.navigationController pushViewController:newsVC animated:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self httpUserList];
-
-}
-
-#pragma mark - 网络请求人员列表 -
-- (NSMutableArray *)userListDataSourceArr {
-    if (_userListDataSourceArr == nil) {
-        self.userListDataSourceArr = [NSMutableArray array];
-    }
-    return _userListDataSourceArr;
-}
-
-
-- (void)httpUserList {
     Manager *manager = [Manager shareInstance];
-    [manager httpUserListWithASpId:manager.memberInfoModel.l_s_id withMobile:manager.memberInfoModel.u_mobile withUserId:manager.memberInfoModel.userid withUserListSuccess:^(id successResult) {
-        
-        self.userListDataSourceArr = [successResult objectForKey:@"list"];
-        [self.peopleMangerTableView reloadData];
-        
-    } withUserListFail:^(NSString *failResultStr) {
-        
-    }];
+    self.factoryNameLabel.text = manager.memberInfoModel.f_name;
+
+    
+    self.isHttp = YES;//首次进入肯定要请求数据
+    
+    //添加下拉刷新和上拉加载
+    [self downPushRefresh];
+
 }
+
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear: animated];
+    [super viewWillAppear:animated];
     //隐藏navigation
     [self scrollViewDidScroll:self.peopleMangerTableView];
+    
+    //请求列表数据
+    if (self.isHttp == YES) {
+        //需要请求数据
+        [self httpUserList];
+    }
+    
 }
-
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+    
     //显示Navigate
     Manager *manager = [Manager shareInstance];
     [self.navigationController.navigationBar setBackgroundImage:[manager getImageWithAlpha:1] forBarMetrics:UIBarMetricsDefault];
@@ -66,7 +86,6 @@
     [manager isClearNavigationBarLine:NO withNavigationController:self.navigationController];
     
 }
-
 
 #pragma mark - 隐藏头部 -
 //--------------------------------------
@@ -91,6 +110,53 @@
         [manager isClearNavigationBarLine:YES withNavigationController:self.navigationController];
     }
 }
+
+#pragma mark - 下拉刷新 -
+//下拉刷新
+- (void)downPushRefresh {
+    [self.peopleMangerTableView addHeaderWithCallback:^{
+        NSLog(@"下拉刷新啦");
+        //不管ishttp是否为YES，都要请求最新列表信息
+        [self httpUserList];
+
+    }];
+    
+}
+
+
+
+#pragma mark - 网络请求人员列表 -
+- (NSMutableArray *)userListDataSourceArr {
+    if (_userListDataSourceArr == nil) {
+        self.userListDataSourceArr = [NSMutableArray array];
+    }
+    return _userListDataSourceArr;
+}
+
+
+- (void)httpUserList {
+    Manager *manager = [Manager shareInstance];
+    [manager httpUserListWithASpId:manager.memberInfoModel.l_s_id withMobile:manager.memberInfoModel.u_mobile withUserId:manager.memberInfoModel.userid withUserListSuccess:^(id successResult) {
+        
+        //请求后，标记已经刷新过了
+        self.isHttp = NO;
+        //数据源
+        self.userListDataSourceArr = [successResult objectForKey:@"list"];
+        [self.peopleMangerTableView reloadData];
+        [self.peopleMangerTableView headerEndRefreshing];//取消头部刷新效果
+        
+    } withUserListFail:^(NSString *failResultStr) {
+        
+    }];
+}
+
+
+
+
+
+
+
+
 
 
 #pragma mark - 添加人员 -
@@ -117,6 +183,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 //    UserListModel *tempModel = self.userListDataSourceArr[indexPath.row];
 //    [self performSegueWithIdentifier:@"peopleManagerToAddPeopleVC" sender:tempModel];
 
@@ -151,10 +218,6 @@
         if (sender != nil) {
             addPeopleVC.tempUserModel = sender;
         }
-        //重新请求列表
-        addPeopleVC.refreshListBlock = ^{
-            [self httpUserList];
-        };
         
     }
 }

@@ -15,8 +15,8 @@
 #define k666666Color [UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1]
 #define k999999Color [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1]
 
-
 #define kccccccColor [UIColor colorWithRed:204/255.0 green:204/255.0 blue:204/255.0 alpha:1]
+#define kCodeBtnColor [UIColor colorWithRed:255/255.0 green:169/255.0 blue:3/255.0 alpha:1]
 
 
 #define kScreenW [UIScreen mainScreen].bounds.size.width

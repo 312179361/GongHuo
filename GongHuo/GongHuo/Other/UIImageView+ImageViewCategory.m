@@ -10,8 +10,16 @@
 #import "UIImageView+WebCache.h"
 @implementation UIImageView (ImageViewCategory)
 - (void)setWebImageURLWithImageUrlStr:(NSString *)imageUrlStr withErrorImage:(UIImage *)errorImage withIsCenter:(BOOL)isCenter {
-    NSLog(@"-----%@",[NSString stringWithFormat:@"http://ima.ertj.cn:8002/%@",imageUrlStr]);
-    NSURL *imageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://ima.ertj.cn:8002/%@",imageUrlStr]];
+
+    if (![imageUrlStr containsString:@"http"]) {
+        imageUrlStr = [NSString stringWithFormat:@"https://ima.nongyao001.com:7002/%@",imageUrlStr];
+
+        
+    }
+    NSLog(@"---%@",imageUrlStr);
+    
+    NSURL *imageUrl = [NSURL URLWithString:imageUrlStr];
+    
     self.contentMode = UIViewContentModeScaleToFill;
     [self sd_setImageWithURL:imageUrl completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         if (error != nil) {

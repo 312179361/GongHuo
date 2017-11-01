@@ -47,7 +47,8 @@
         //如果有参数，将字典变为json格式
         parameterStr = [self dictionaryToJson:parametersDic];
     }
-    
+    [manager setSecurityPolicy:[self customSecurityPolicy]];
+
     //开始get请求
     [manager GET:requestURL parameters:parameterStr success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //请求成功
@@ -78,6 +79,12 @@
     if ([responseType isEqualToString:@"data"]) {
         manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     }
+    
+    NSString *parameterStr = nil;
+    if ([responseType isEqualToString:@"aaaaaa"]) {
+        parameterStr = [self dictionaryToJson:parametersDic];
+
+    }
     if (contentTypes!= nil) {
         //支持的返回类型
         manager.responseSerializer.acceptableContentTypes = contentTypes;
@@ -95,7 +102,22 @@
 //    }
     NSLog(@"---%@",[self dictionaryToJson:parametersDic]);
     
-    [manager POST:requestURL parameters:parametersDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    id paraIDIDID = nil;
+    if (parameterStr!= nil) {
+        paraIDIDID = parameterStr;
+    }else {
+        paraIDIDID = parametersDic;
+    }
+    
+    
+    if ([requestURL isEqualToString:@"https://"]) {
+        [manager setSecurityPolicy:[self customSecurityPolicy]];
+
+    }
+//    [manager setSecurityPolicy:[self customSecurityPolicy]];
+
+    
+    [manager POST:requestURL parameters:paraIDIDID success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //如果返回的是字符串，就消除双引号。因为返回如果是字符串，就会带双引号
 //        if ([contentType isEqualToString:@"string"]) {
 //            
@@ -138,7 +160,8 @@
         //如果有参数，将字典变为json格式
         parameterStr = [self dictionaryToJson:parametersDic];
     }
-    
+    [manager setSecurityPolicy:[self customSecurityPolicy]];
+
     [manager DELETE:requestURL parameters:parameterStr success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         //请求成功
         //如果返回的是字符串，就消除双引号。因为返回如果是字符串，就会带双引号
@@ -184,7 +207,8 @@
         manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     }
     
-    
+    [manager setSecurityPolicy:[self customSecurityPolicy]];
+
     
     [manager PUT:requestURL parameters:parameterStr success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         //成功结果
@@ -242,7 +266,33 @@
 }
 
 */
-
+#pragma mark - https验证 -
+- (AFSecurityPolicy*)customSecurityPolicy {
+    
+    // /先导入证书
+    NSString *cerPath = [[NSBundle mainBundle]pathForResource:@"server" ofType:@"cer"];//证书的路径
+    
+    if (cerPath!= nil) {
+        NSData *certData = [NSData dataWithContentsOfFile:cerPath];
+        
+        // AFSSLPinningModeCertificate 使用证书验证模式
+        AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
+        // allowInvalidCertificates 是否允许无效证书（也就是自建的证书），默认为NO
+        // 如果是需要验证自建证书，需要设置为YES
+        securityPolicy.allowInvalidCertificates = YES;
+        
+        //validatesDomainName 是否需要验证域名，默认为YES；
+        //假如证书的域名与你请求的域名不一致，需把该项设置为NO；如设成NO的话，即服务器使用其他可信任机构颁发的证书，也可以建立连接，这个非常危险，建议打开。
+        //置为NO，主要用于这种情况：客户端请求的是子域名，而证书上的是另外一个域名。因为SSL证书上的域名是独立的，假如证书上注册的域名是www.google.com，那么mail.google.com是无法验证通过的；当然，有钱可以注册通配符的域名*.google.com，但这个还是比较贵的。
+        //如置为NO，建议自己添加对应域名的校验逻辑。
+        securityPolicy.validatesDomainName = YES;
+        
+        securityPolicy.pinnedCertificates = @[certData];
+        return securityPolicy;
+        
+    }
+    return 0;
+}
 
 #pragma mark - 将字典变为json格式的字符串 -
 - (NSString *)dictionaryToJson:(id )dic {

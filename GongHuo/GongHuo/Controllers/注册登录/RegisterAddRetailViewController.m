@@ -31,6 +31,12 @@
 
 @implementation RegisterAddRetailViewController
 
+- (IBAction)leftBarButtonAction:(UIBarButtonItem *)sender {
+
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -40,6 +46,11 @@
     //首先先隐藏
     self.selectAddressView.hidden = YES;
     [self.view addSubview:self.selectAddressView];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    [SVProgressHUD dismiss];
 }
 
 
@@ -72,6 +83,7 @@
         //
         NSLog(@"地区id%@",areaId);
         [self.areaButton setTitle:[NSString stringWithFormat:@"%@ %@ %@",shengStr,shiStr,quStr] forState:UIControlStateNormal];
+        [self.areaButton setTitleColor:k333333Color forState:UIControlStateNormal];
         
         //选择了新的地址
         if (areaId != self.selectAreaId) {
@@ -140,7 +152,7 @@
         [manager httpAddShopWithMid:[self.selectMarkDic objectForKey:@"M_ID"] withName:self.retailNameTextField.text withDeveloperName:self.tempMobile withAreaid:self.selectAreaId withAddress:self.retailAddressTextField.text withAddShopSuccess:^(id successResult) {
             
 
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
             
         } withAddShopFail:^(NSString *failResultStr) {
             [alertM showAlertViewWithTitle:@"添加失败" withMessage:failResultStr actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:nil];

@@ -8,11 +8,13 @@
 
 #import "ReviewDetailViewController.h"
 #import "UploadProductViewController.h"
-@interface ReviewDetailViewController ()
-
-//控件
+#import "UIImageView+ImageViewCategory.h"
+@interface ReviewDetailViewController ()<UIScrollViewDelegate>
+//页码
+@property (weak, nonatomic) IBOutlet UILabel *pageLabel;
 //图片
-
+@property (weak, nonatomic) IBOutlet UIView *imageViewContentView;
+@property(nonatomic,strong)NSMutableArray *imageViewArr;
 //名称
 @property (weak, nonatomic) IBOutlet UILabel *productNameLabel;
 
@@ -49,17 +51,32 @@
 }
 
 
+- (NSMutableArray *)imageViewArr {
+    if (_imageViewArr == nil) {
+        self.imageViewArr = [NSMutableArray array];
+        
+    }
+    return _imageViewArr;
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    //网络请求产品详情
     Manager *manager = [Manager shareInstance];
+    //创建6个imageview
+    for (int i = 0; i < 6; i++) {
+        UIImageView *tempImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenW*i, 0, kScreenW, kScreenW/3*2)];
+        tempImageView.backgroundColor = [UIColor redColor];
+        [self.imageViewContentView addSubview:tempImageView];
+        [self.imageViewArr addObject:tempImageView];
+    }
+    
     
     switch (self.fromType) {
         case 0://从审核中心
         {
             [self updateInfoUIFromReviewList];
-            
+            //网络请求产品详情
             [manager httpProductInfoWithAID:self.tempCheckModel.A_ID withProductInfoSuccess:^(id successResult) {
                 
                 self.tempCheckModel = successResult;
@@ -68,6 +85,13 @@
             } withProductInfoFail:^(NSString *failResultStr) {
                 
             }];
+            
+            
+            if ([self.tempCheckModel.A_STATUS_CHECK isEqualToString:@"1"]) {
+                //已通过的 隐藏右边的编辑按钮
+                self.navigationItem.rightBarButtonItem = nil;
+
+            }
 
         }
             break;
@@ -82,9 +106,6 @@
         default:
             break;
     }
-    
-    
-    
     
 }
 
@@ -109,13 +130,31 @@
             break;
     }
     
-    
-    
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    [SVProgressHUD dismiss];
     
 }
 
-//来源：供货列表 刷新UI
+#pragma mark - scrollView Delegate -
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    NSInteger index = scrollView.contentOffset.x/scrollView.frame.size.width;
+    self.pageLabel.text = [NSString stringWithFormat:@"%ld/6",index+1];
+}
+
+
+
+#pragma mark - 刷新页面 -
+//来源：审核列表 刷新UI
 - (void)updateInfoUIFromReviewList {
+    for (int i = 0; i < self.tempCheckModel.A_imageArr.count; i++) {
+        if ([self.tempCheckModel.A_imageArr[i] length] > 0) {
+            
+            [self.imageViewArr[i] setWebImageURLWithImageUrlStr:self.tempCheckModel.A_imageArr[i] withErrorImage:nil withIsCenter:NO];
+        }
+    }
     
     self.productNameLabel.text = self.tempCheckModel.A_NAME;
     self.productStandardLabel.text = self.tempCheckModel.A_STANDARD;

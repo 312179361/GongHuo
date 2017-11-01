@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "UserListModel.h"
-typedef void(^RefreshListBlock)();
+//typedef void(^RefreshListBlock)();
 @interface AddPeopleViewController : UIViewController
 @property(nonatomic,strong)UserListModel *tempUserModel;
 
 //刷新Block
-@property(nonatomic,copy)RefreshListBlock refreshListBlock;
+//@property(nonatomic,copy)RefreshListBlock refreshListBlock;
 
 @end

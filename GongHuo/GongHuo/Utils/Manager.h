@@ -19,6 +19,8 @@
 #import "OrderListModel.h"
 #import "UserListModel.h"
 #import "NewsModel.h"
+
+#import "SVProgressHUD.h"
 typedef void(^SuccessResult)(id successResult);
 typedef void(^FailResult)(NSString *failResultStr);
 
@@ -67,6 +69,13 @@ typedef void(^FailResult)(NSString *failResultStr);
 //产品剂型
 - (void)httpProductDosageWithDosageSuccess:(SuccessResult)dosageSuccess withDosageFail:(FailResult)dosageFail;
 
+//修改记录中的删除
+- (void)httpSupplyHiddenWithAid:(NSString *)a_id withHiddenSuccess:(SuccessResult)hiddenSuccess withHiddenFail:(FailResult)hiddenFail;
+
+
+//是否有新订单
+- (void)httpIsNewOrderWithAFID:(NSString *)a_f_id withIsNewSuccess:(SuccessResult)isNewSuccess withIsNewFail:(FailResult)isNewFail;
+
 #pragma mark - 订单 -
 //订单列表
 - (void)httpOrderListWithAFID:(NSString *)a_f_id withAStatus:(NSString *)a_status withPageIndex:(NSInteger)pageIndex withOrderListSuccess:(SuccessResult)orderListSuccess withOrderListFail:(FailResult)orderListFail ;
@@ -89,6 +98,11 @@ typedef void(^FailResult)(NSString *failResultStr);
 - (void)httpAddUserWithMemberInfo:(MemberInfoModel *)memberInfo withPostionType:(NSInteger )postionType withTureName:(NSString *)trueName withMobile:(NSString *)mobile withCardPeople:(NSString *)cardPeople withCard:(NSString *)card withAddUserSuccess:(SuccessResult)addUserSuccess withAddUserFail:(FailResult)addUserFail ;
 //人员编辑
 - (void)httpEditUserWithMemberInfo:(UserListModel *)userList withToken:(NSString *)token withPostionType:(NSInteger )postionType withTureName:(NSString *)trueName withMobile:(NSString *)mobile withCardPeople:(NSString *)cardPeople withCard:(NSString *)card withEditUserSuccess:(SuccessResult)editUserSuccess withEditUserFail:(FailResult)editUserFail ;
+
+//是否允许添加老板
+- (void)httpIsAddBossWithLsid:(NSString *)ls_Id withIsAddSuccess:(SuccessResult )isAddSuccess withIdAddFail:(FailResult)isAddFail;
+
+
 
 #pragma mark - 登录 -
 //判断登录与否
@@ -145,14 +159,22 @@ typedef void(^FailResult)(NSString *failResultStr);
 #pragma mark - 其他 -
 //全国地区请求
 - (void)httpAreaTreeWithAreaSuccess:(SuccessResult)areaSuccess withAreaFail:(FailResult)areaFail;
+//删除图片
+- (void)deleteImageWithDeleteImageUrl:(NSString *)imageUrl withToken:(NSString *)token withDeleteSuccess:(SuccessResult )deleteSuccess withDeleteFail:(FailResult)deleteFail  ;
+
 //上传图片附件
 - (void)uploadImageWithUploadImage:(UIImage *)uploadImage withUploadSuccess:(SuccessResult )uploadSuccess withUploadFail:(FailResult)uploadFail ;
+
+
 //从本地读取个人信息数据
 - (BOOL)readMemberInfoModelFromLocation ;
 
 
 //截屏
 -(UIImage *)screenShot ;
+
+#pragma mark - 压缩 -
+- (UIImage *)compressOriginalImage:(UIImage *)originalImage toMaxDataSizeKBytes:(CGFloat)size;
 
 #pragma mark - 隐藏navigationBar -
 //隐藏navigationBar下面的那条线

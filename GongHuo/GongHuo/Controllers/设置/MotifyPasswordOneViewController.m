@@ -39,12 +39,13 @@
     self.mobileLabel.text = manager.memberInfoModel.u_mobile;
     
 }
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    [SVProgressHUD dismiss];
     //定制器取消
     [self endTimeDown];
 }
+
 
 #pragma mark - 短信验证阿 和 倒计时 -
 //开始倒计时

@@ -76,11 +76,13 @@
     
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
     //定制器取消
     [self endTimeDown];
 }
+
 
 #pragma mark - 刷新View -
 //刷新页面信息
@@ -106,11 +108,11 @@
     }
 }
 
-//清空所有的输入框
+//清空下面的的输入框
 - (void)clearTextField {
-    self.nameTextField.text = nil;
-    self.phoneTextField.text = nil;
-    self.codeTextField.text = nil;
+//    self.nameTextField.text = nil;
+//    self.phoneTextField.text = nil;
+//    self.codeTextField.text = nil;
     self.cardPeopleTextField.text = nil;
     self.cardNoTextField.text = nil;
 }
@@ -162,7 +164,7 @@
     self.sendCodeButton.enabled = YES;
     [self.sendCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     //背景色变红
-    self.sendCodeButton.backgroundColor = kMainColor;
+    self.sendCodeButton.backgroundColor = kCodeBtnColor;
     
 }
 - (void)timerAction:(NSTimer *)timer {
@@ -226,9 +228,9 @@
         }
     }
    
-    if (self.codeTextField.text == nil || [self.codeTextField.text isEqualToString:@""]) {
-        errorMsg = @"请填写手机验证码";
-    }
+//    if (self.codeTextField.text == nil || [self.codeTextField.text isEqualToString:@""]) {
+//        errorMsg = @"请填写手机验证码";
+//    }
     NSString *mobileStr = @"";
     if (self.tempUserModel == nil) {
         //只有添加才会有电话
@@ -251,47 +253,29 @@
     if ([errorMsg isEqualToString:@""]) {
         
         //停止短信倒计时
-        [self endTimeDown];
+//        [self endTimeDown];
         //验证短信验证码
-        [manager httpCheckMsgCodeWithMobile:mobileStr withMobileCode:self.codeTextField.text withCheckCodeSuccess:^(id successResult) {
-            //如果验证成功，就可以编辑人员或者添加人员
-            if (self.tempUserModel!= nil) {
-                //编辑人员
-                [manager httpEditUserWithMemberInfo:self.tempUserModel withToken:manager.memberInfoModel.token withPostionType:self.postionInt withTureName:self.nameTextField.text withMobile:self.tempUserModel.l_mobile withCardPeople:self.cardPeopleTextField.text withCard:self.cardNoTextField.text withEditUserSuccess:^(id successResult) {
-                    //编辑成功后
-                    [alertM showAlertViewWithTitle:@"恭喜您，编辑成功" withMessage:nil actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:^(NSInteger actionBlockNumber) {
-                        //刷新列表
-                        self.refreshListBlock();
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }];
-                } withEditUserFail:^(NSString *failResultStr) {
-                    //编辑失败
-                    [alertM showAlertViewWithTitle:@"编辑失败" withMessage:failResultStr actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:nil];
-                }];
-                
-            }else {
-                //添加人员
-                [manager httpAddUserWithMemberInfo:manager.memberInfoModel withPostionType:self.postionInt withTureName:self.nameTextField.text withMobile:self.phoneTextField.text withCardPeople:self.cardPeopleTextField.text withCard:self.cardNoTextField.text withAddUserSuccess:^(id successResult) {
-                    
-                    //添加成功
-                    [alertM showAlertViewWithTitle:@"恭喜您，添加成功" withMessage:nil actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:^(NSInteger actionBlockNumber) {
-                        //刷新列表
-                        self.refreshListBlock();
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }];
-                    
-                    
-                } withAddUserFail:^(NSString *failResultStr) {
-                    //添加失败
-                    [alertM showAlertViewWithTitle:@"添加失败" withMessage:failResultStr actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:nil];
-                }];
-            }
+//        [manager httpCheckMsgCodeWithMobile:mobileStr withMobileCode:self.codeTextField.text withCheckCodeSuccess:^(id successResult) {
+        
+        //如果是添加的老板，或者是编辑成老板，就要去验证一下
+        if (self.postionInt == 1) {
+            [manager httpIsAddBossWithLsid:manager.memberInfoModel.l_s_id withIsAddSuccess:^(id successResult) {
+                [self httpAddPeopleAction];
+
+            } withIdAddFail:^(NSString *failResultStr) {
+                [alertM showAlertViewWithTitle:@"暂不能添加" withMessage:failResultStr actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:nil];
+            }];
             
+        }else {
+            //不是老板，就可以直接添加
+            [self httpAddPeopleAction];
+        }
+        
       
-        } withCheckCodeFail:^(NSString *failResultStr) {
+//        } withCheckCodeFail:^(NSString *failResultStr) {
             //如果验证不成功，提示
-            [alertM showAlertViewWithTitle:@"短信验证码验证失败" withMessage:failResultStr actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:nil];
-        }];
+//            [alertM showAlertViewWithTitle:@"短信验证码验证失败" withMessage:failResultStr actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:nil];
+//        }];
         
         
     }else {
@@ -299,6 +283,47 @@
         [alertM showAlertViewWithTitle:errorMsg withMessage:nil actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:nil];
     }
     
+}
+
+
+//网络请求，添加 或者编辑
+- (void)httpAddPeopleAction {
+    Manager *manager = [Manager shareInstance];
+    AlertManager *alertM = [AlertManager shareIntance];
+    
+    //如果验证成功，就可以编辑人员或者添加人员
+    if (self.tempUserModel!= nil) {
+        //编辑人员
+        [manager httpEditUserWithMemberInfo:self.tempUserModel withToken:manager.memberInfoModel.token withPostionType:self.postionInt withTureName:self.nameTextField.text withMobile:self.tempUserModel.l_mobile withCardPeople:self.cardPeopleTextField.text withCard:self.cardNoTextField.text withEditUserSuccess:^(id successResult) {
+            //编辑成功后
+            [alertM showAlertViewWithTitle:@"恭喜您，编辑成功" withMessage:nil actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:^(NSInteger actionBlockNumber) {
+                //刷新列表
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshPeopleListNoti" object:self userInfo:nil];
+                
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+        } withEditUserFail:^(NSString *failResultStr) {
+            //编辑失败
+            [alertM showAlertViewWithTitle:@"编辑失败" withMessage:failResultStr actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:nil];
+        }];
+        
+    }else {
+        //添加人员
+        [manager httpAddUserWithMemberInfo:manager.memberInfoModel withPostionType:self.postionInt withTureName:self.nameTextField.text withMobile:self.phoneTextField.text withCardPeople:self.cardPeopleTextField.text withCard:self.cardNoTextField.text withAddUserSuccess:^(id successResult) {
+            
+            //添加成功
+            [alertM showAlertViewWithTitle:@"恭喜您，添加成功" withMessage:nil actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:^(NSInteger actionBlockNumber) {
+                //刷新列表
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshPeopleListNoti" object:self userInfo:nil];
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+            
+            
+        } withAddUserFail:^(NSString *failResultStr) {
+            //添加失败
+            [alertM showAlertViewWithTitle:@"添加失败" withMessage:failResultStr actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:nil];
+        }];
+    }
 }
 
 

@@ -49,6 +49,9 @@
 //产品剂型
 - (NSString *)supply_dosage_Base;
 
+//删除修改记录，
+- (NSString *)supply_hide_Base;
+
 #pragma mark - 订单 -
 //订单列表
 - (NSString *)order_list_Base;
@@ -62,6 +65,9 @@
 //查看发货单
 - (NSString *)order_invoice_Base;
 
+//是否有新订单
+- (NSString *)order_fresh_Base;
+
 
 #pragma mark - 人员管理 -
 //人员管理列表
@@ -70,8 +76,8 @@
 - (NSString *)user_add_Base ;
 //人员编辑
 - (NSString *)user_create_Base ;
-
-
+//是否允许添加老板
+- (NSString *)user_boss_Base;
 
 #pragma mark - 登录  -
 - (NSString *)login_Base;
@@ -105,8 +111,9 @@
 //消息详情
 - (NSString *)newsDetail_Base;
 
-#pragma mark - 图片上传 -
+#pragma mark - 图片上传 和 删除 -
 - (NSString *)uploadImage_Base;
+- (NSString *)deleteImage_Base;
 
 #pragma mark - 其他 -
 //全国地区
@@ -116,6 +123,6 @@
 //验证短信验证码是否正确
 - (NSString *)user_check_Base;
 
-
+//
 
 @end

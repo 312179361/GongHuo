@@ -43,6 +43,11 @@
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    [SVProgressHUD dismiss];
+}
+
 //
 - (NSMutableArray *)dataSourceArr {
     if (_dataSourceArr == nil) {
@@ -68,6 +73,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
     NewsModel *tempModel = self.dataSourceArr[indexPath.row];
     
     [self performSegueWithIdentifier:@"newsListToDetailVC" sender:tempModel];

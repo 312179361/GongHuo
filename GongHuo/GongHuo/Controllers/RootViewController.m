@@ -13,6 +13,7 @@
 #import "AlertManager.h"
 #import "UploadProductViewController.h"
 #import "NewsViewController.h"
+#import "SVProgressHUD.h"
 @interface RootViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 
@@ -32,11 +33,14 @@
     }
     return self;
 }
-//登录后的通知
 
+
+//登录后的通知
 - (void)loginNotiAction:(NSNotification *)noti {
     Manager *manager = [Manager shareInstance];
     self.title = manager.memberInfoModel.f_name;
+    //查看有没有新订单
+    [self httpIsNewOrderAction];
 }
 
 - (IBAction)rightBarButtonAction:(UIBarButtonItem *)sender {
@@ -79,6 +83,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+    
     Manager *manager = [Manager shareInstance];
     
     [self.navigationController.navigationBar setBackgroundImage:[manager getImageWithAlpha:1] forBarMetrics:UIBarMetricsDefault];
@@ -91,6 +97,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+
     //进入应用要执行一下登录，保证每次都是登录状态
     [self checkLoginAction];
    
@@ -114,7 +121,8 @@
         NSLog(@"%@--%@",manager.memberInfoModel.u_mobile,manager.memberInfoModel.password);
         //执行一下登录
         [manager httpLoginWithMobile:manager.memberInfoModel.u_mobile withPassword:manager.memberInfoModel.password withLoginSuccess:^(id successResult) {
-            
+            //查看有没有新订单
+            [self httpIsNewOrderAction];
             
         } withLoginFail:^(NSString *failResultStr) {
             //登录失败，直接跳转到登录界面
@@ -130,8 +138,21 @@
 
 }
 
-
-
+#pragma mark - 有没有新订单 -
+- (void)httpIsNewOrderAction {
+    Manager *manager = [Manager shareInstance];
+    
+    [manager httpIsNewOrderWithAFID:manager.memberInfoModel.l_s_id withIsNewSuccess:^(id successResult) {
+        //计算时间
+        
+//        orderListModel.etm - orderListModel.time
+        
+        
+    } withIsNewFail:^(NSString *failResultStr) {
+        
+    }];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -186,7 +207,17 @@
         //先判断一下是否可以上传
         [manager httpCheckAccordUploadWithASpId:manager.memberInfoModel.l_s_id withCheckAccordSuccess:^(id successResult) {
             
-            [self performSegueWithIdentifier:@"rootToUploadProductVC" sender:nil];
+            if ([successResult isEqualToString:@"可以上传"]) {
+                [self performSegueWithIdentifier:@"rootToUploadProductVC" sender:nil];
+
+            }else {
+                
+                [alertM showAlertViewWithTitle:@"暂时不能上传产品" withMessage:successResult actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:^(NSInteger actionBlockNumber) {
+                    //缺少人员，就跳转到添加人员里面
+                    [self performSegueWithIdentifier:@"rootToManagerPeopleVC" sender:nil];
+                }];
+                
+            }
             
         } withCheckAccordFail:^(NSString *failResultStr) {
             [alertM showAlertViewWithTitle:@"暂时不能上传产品" withMessage:failResultStr actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:nil];

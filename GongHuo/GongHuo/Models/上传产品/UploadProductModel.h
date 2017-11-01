@@ -10,7 +10,7 @@
 
 @interface UploadProductModel : NSObject
 @property(nonatomic,strong)NSString *a_id;
-@property(nonatomic,strong)NSMutableArray *productImageArr;
+@property(nonatomic,strong)NSMutableArray *productImageArr;//包含6张图片
 @property(nonatomic,strong)NSString *productName;
 @property(nonatomic,strong)NSString *productStandard;//产品规格 eg:1000ml*50
 @property(nonatomic,strong)NSString *productStandardOne;//产品规格1 eg:袋、瓶、盒、桶
@@ -22,24 +22,5 @@
 @property(nonatomic,strong)NSString *product_NH;//产品简介
 @property(nonatomic,strong)NSString *productDosageId;//产品剂型id
 @property(nonatomic,strong)NSString *productCodeId;//产品分类id
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @end

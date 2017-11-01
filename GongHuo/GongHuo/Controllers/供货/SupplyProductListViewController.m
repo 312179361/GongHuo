@@ -14,7 +14,12 @@
 #import "SupplyProductListThreeTableViewCell.h"
 #import "AlertCustomizeViewController.h"
 #import "ReviewDetailViewController.h"
+#import "MJRefresh.h"
+#import "NewsViewController.h"
+
 @interface SupplyProductListViewController ()<UITableViewDataSource,UITableViewDelegate>
+@property(nonatomic,strong)NSMutableDictionary *isHttpDic;
+
 @property (weak, nonatomic) IBOutlet UITableView *supplyListTableview;
 //四个按钮
 @property (weak, nonatomic) IBOutlet LineButton *upperButton;
@@ -25,6 +30,7 @@
 @property(nonatomic,strong)NSMutableDictionary *supplyListDataSourceDic;
 @property(nonatomic,strong)NSString *currentType;//当前类型，0上架中、1、修改记录、2已下架
 
+@property (nonatomic,strong)NSMutableDictionary *currentPageDic;//当前页数字典
 
 
 @end
@@ -43,32 +49,80 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)rightBarButtonAction:(UIBarButtonItem *)sender {
-#warning 消息
-    [self.supplyListTableview reloadData];
+
+    NewsViewController *newsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"newsViewController"];
+    [self.navigationController pushViewController:newsVC animated:YES];
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    //首次进入，类型是全部
-    self.currentType = @"0";
-    
     // 让cell自适应高度
     self.supplyListTableview.rowHeight = UITableViewAutomaticDimension;
     //设置估算高度
     self.supplyListTableview.estimatedRowHeight = 44;
     
+    //首次进入，类型是全部
+    self.currentType = @"0";
+    
+    self.isHttpDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"YES",@"0",@"YES",@"1",@"YES",@"2", nil];//首次进入肯定要请求数据
+    //默认都是第一页
+    self.currentPageDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1",@"0",@"1",@"1",@"1",@"2",nil];
+    //添加下拉刷新和上拉加载
+    [self downPushRefresh];
+    [self upPushReload];
+    
+   
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    //查看一下原来有没有信息,如果没有，就请求信息
-    if ([self.supplyListDataSourceDic objectForKey:self.currentType] == nil) {
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    //请求列表数据
+    if ([[self.isHttpDic objectForKey:self.currentType] isEqualToString:@"YES"]) {
+        //需要请求数据
         [self httpSupplyListWithStatus:self.currentType withPages:1];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
     
 }
+
+#pragma mark - 下拉刷新 上拉加载 -
+//下拉刷新
+- (void)downPushRefresh {
+    [self.supplyListTableview addHeaderWithCallback:^{
+        NSLog(@"下拉刷新啦");
+        //不管ishttp是否为YES，都要请求最新列表信息
+        [self httpSupplyListWithStatus:self.currentType withPages:1];
+
+    }];
+    
+}
+//上拉加载
+- (void)upPushReload {
+    
+    [self.supplyListTableview addFooterWithCallback:^{
+        NSLog(@"上拉加载啦");
+        //现在第几页
+        NSInteger tempCurrentPage = [[self.currentPageDic objectForKey:self.currentType] integerValue] ;
+        //总共有几页
+        NSInteger totalPage = [[[self.supplyListDataSourceDic objectForKey:self.currentType] objectForKey:@"pages"] integerValue];
+        
+        if (tempCurrentPage < totalPage) {
+            //进行加载
+            [self httpSupplyListWithStatus:self.currentType withPages:tempCurrentPage+1];
+        }else {
+            [self.supplyListTableview footerEndRefreshing];
+        }
+    }];
+    
+}
+
+
 
 #pragma mark - 网络请求列表 -
 - (NSMutableDictionary *)supplyListDataSourceDic {
@@ -84,7 +138,31 @@
     
     [manager httpSupplyListWithDFID:manager.memberInfoModel.l_s_id withStatusCheck:status withSid:@"" withAid:@"" withPageIndex:pages withSupplyListSuccess:^(id successResult) {
         
-        [self.supplyListDataSourceDic setValue:successResult forKey:self.currentType];
+        if (pages == 1) {
+            //刷新
+            //请求后，标记已经刷新过了
+            [self.isHttpDic setValue:@"NO" forKey:status];
+            //刷新了，就要重置currentPage
+            [self.currentPageDic setValue:@"1" forKey:status];
+            //数据源
+            [self.supplyListDataSourceDic setValue:successResult forKey:status];
+            
+            [self.supplyListTableview headerEndRefreshing];//取消头部刷新效果
+        }else {
+            //加载
+            //在原来的基础上增加数据源
+            //得到对应的数据源
+            NSMutableDictionary *tempDic = [self.supplyListDataSourceDic objectForKey:status];
+            NSMutableArray *tempData = [tempDic objectForKey:@"list"];
+            [tempData addObjectsFromArray:[successResult objectForKey:@"list"]];
+            [tempDic setValue:[successResult objectForKey:@"pages"] forKey:@"pages"];
+            
+            [self.supplyListTableview footerEndRefreshing];//取消尾部加载效果
+            //加载要刷新currentPage
+            [self.currentPageDic setValue:[NSString stringWithFormat:@"%ld",pages] forKey:status];
+            
+        }
+        
         [self.supplyListTableview reloadData];
 
     } withSupplyListFail:^(NSString *failResultStr) {
@@ -109,17 +187,12 @@
         [self.lowerButton setTitleColor:k333333Color forState:UIControlStateNormal];
         
         //请求信息。查看一下原来有没有信息
-        if ([self.supplyListDataSourceDic objectForKey:@"0"] == nil) {
+        if ([self.supplyListDataSourceDic objectForKey:@"0"] == nil || [[self.isHttpDic objectForKey:@"0"] isEqualToString:@"YES"]) {
             [self httpSupplyListWithStatus:self.currentType withPages:1];
         }else {
             [self.supplyListTableview reloadData];
         }
-
-
     }
-   
-    
-
 }
 
 
@@ -136,15 +209,12 @@
         [self.lowerButton setTitleColor:k333333Color forState:UIControlStateNormal];
 
         //请求信息。查看一下原来有没有信息
-        if ([self.supplyListDataSourceDic objectForKey:@"1"] == nil) {
+        if ([self.supplyListDataSourceDic objectForKey:@"1"] == nil || [[self.isHttpDic objectForKey:@"1"] isEqualToString:@"YES"]) {
             [self httpSupplyListWithStatus:self.currentType withPages:1];
         }else {
             [self.supplyListTableview reloadData];
         }
-
-        
     }
-   
 }
 
 - (IBAction)lowerButtonAction:(LineButton *)sender {
@@ -160,15 +230,12 @@
         [self.lowerButton setTitleColor:kMainColor forState:UIControlStateNormal];
         
         //请求信息。查看一下原来有没有信息
-        if ([self.supplyListDataSourceDic objectForKey:@"2"] == nil) {
+        if ([self.supplyListDataSourceDic objectForKey:@"2"] == nil || [[self.isHttpDic objectForKey:@"2"] isEqualToString:@"YES"]) {
             [self httpSupplyListWithStatus:self.currentType withPages:1];
         }else {
             [self.supplyListTableview reloadData];
         }
-
-        
     }
-
 }
 
 
@@ -186,8 +253,38 @@
     return 15;
 }
 
+/*
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    //只有修改记录可以进行 左滑删除
+    if ([self.currentType integerValue] == 1) {
+        return YES;
+    }
+    return NO;
+}
 
-
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+       //删除
+        Manager *manager = [Manager shareInstance];
+        AlertManager *alertM = [AlertManager shareIntance];
+        NSMutableArray *listArr = [[self.supplyListDataSourceDic objectForKey:self.currentType] objectForKey:@"list"];
+        SupplyListModel *tempModel = listArr[indexPath.section];
+        
+        [manager httpSupplyHiddenWithAid:tempModel.A_ID withHiddenSuccess:^(id successResult) {
+            //删除成功
+            
+            [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationLeft];
+            
+            
+        } withHiddenFail:^(NSString *failResultStr) {
+            [alertM showAlertViewWithTitle:@"删除失败" withMessage:failResultStr actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:nil];
+        }];
+        
+    }
+    
+}
+ 
+ */
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -226,6 +323,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     NSMutableArray *listArr = [[self.supplyListDataSourceDic objectForKey:self.currentType] objectForKey:@"list"];
     SupplyListModel *tempModel = listArr[indexPath.section];
     
@@ -243,6 +342,7 @@
 
     //下架 弹出alertView
     AlertCustomizeViewController *alertVC = [self.storyboard instantiateViewControllerWithIdentifier:@"alertCustomizeVC"];
+    alertVC.backImg = [manager screenShot];
     alertVC.alertTypeInt = alertOne;
     alertVC.enterBlock = ^(id enterBLock) {
         NSLog(@"%@",enterBLock);
@@ -251,18 +351,22 @@
          @{@"reasonInt":下架类型int,
          @"reasonStr":下架原因字符串}
          */
+        
+        
+
         [manager httpEditSupplyProductWithModel:tempModel withMemberInfo:manager.memberInfoModel withEditType:@"1" withNewPrice:@"" withNewInventory:@"" withShelfInt:[enterBLock objectForKey:@"reasonInt"] withShelfReason:[enterBLock objectForKey:@"reasonStr"] withEditSupplySuccess:^(id successResult) {
             //下架成功后，将这个数据从数据源中删除
             [listArr removeObject:tempModel];
             [self.supplyListTableview reloadData];
             
-            //清空一下 已下架的产品，方便下次刷新
-            [self.supplyListDataSourceDic setValue:nil forKey:@"2"];
+            //标记一下 已下架的产品，使得下次刷新
+            [self.isHttpDic setValue:@"YES" forKey:@"2"];
+//            [self.supplyListDataSourceDic setValue:nil forKey:@"2"];
             
         } withEditSupplyFail:^(NSString *failResultStr) {
             
         }];
-        
+
         
     };
     [self presentViewController:alertVC animated:YES completion:nil];
@@ -279,6 +383,7 @@
     
     //修改价格 弹出alertView
     AlertCustomizeViewController *alertVC = [self.storyboard instantiateViewControllerWithIdentifier:@"alertCustomizeVC"];
+    alertVC.backImg = [manager screenShot];
     alertVC.alertTypeInt = alertTwo;
     alertVC.alertTwoTitleStr = @"修改价格";
     alertVC.oldNumberStr = tempModel.A_PRICE_COST;//老价格
@@ -290,8 +395,8 @@
             [listArr removeObject:tempModel];
             [self.supplyListTableview reloadData];
 
-            //清空一下 修改记录的产品，方便下次刷新
-            [self.supplyListDataSourceDic setValue:nil forKey:@"1"];
+            //标记一下 修改记录的产品，方便下次刷新
+            [self.isHttpDic setValue:@"YES" forKey:@"1"];
             
         } withEditSupplyFail:^(NSString *failResultStr) {
             
@@ -312,6 +417,7 @@
     
     //修改库存 弹出alertView
     AlertCustomizeViewController *alertVC = [self.storyboard instantiateViewControllerWithIdentifier:@"alertCustomizeVC"];
+    alertVC.backImg = [manager screenShot];
     alertVC.alertTypeInt = alertTwo;
     alertVC.alertTwoTitleStr = @"修改库存";
     alertVC.oldNumberStr = tempModel.D_INVENTORY;//老库存
@@ -325,9 +431,9 @@
             [listArr removeObject:tempModel];
             [self.supplyListTableview reloadData];
 
-            //清空一下 修改记录的产品，方便下次刷新
-            [self.supplyListDataSourceDic setValue:nil forKey:@"1"];
-
+            //标记一下 修改记录的产品，方便下次刷新
+            [self.isHttpDic setValue:@"YES" forKey:@"1"];
+            
         } withEditSupplyFail:^(NSString *failResultStr) {
             
         }];

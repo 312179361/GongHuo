@@ -9,6 +9,7 @@
 #import "SetCenterViewController.h"
 #import "Manager.h"
 #import "SDImageCache.h"
+#import "NewsViewController.h"
 @interface SetCenterViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong)NSArray *dataSourceArr;
 @property (weak, nonatomic) IBOutlet UITableView *setCenterTableView;
@@ -23,7 +24,9 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)rightBarButtonAction:(UIBarButtonItem *)sender {
-#warning 消息
+    NewsViewController *newsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"newsViewController"];
+    [self.navigationController pushViewController:newsVC animated:YES];
+    
 }
 
 - (void)viewDidLoad {
@@ -33,6 +36,12 @@
     
     //计算缓存
     self.cacheSize = [[SDImageCache sharedImageCache]getSize];
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
     
 }
 

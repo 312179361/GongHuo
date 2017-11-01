@@ -8,9 +8,21 @@
 
 #import "UploadProductViewController.h"
 #import "Manager.h"
+#import "UIImageView+ImageViewCategory.h"
 #import "PlaceholdTextView.h"
 #import "SelectFormatViewController.h"
+#import "SelectProductImageViewController.h"
+#import "NewsViewController.h"
 @interface UploadProductViewController ()
+//头部约束
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headLayout;
+@property (weak, nonatomic) IBOutlet UIView *noImgBackView;
+@property (weak, nonatomic) IBOutlet UIView *imgBackView;
+@property (weak, nonatomic) IBOutlet UILabel *pageLabel;
+//产品图片scrollview的contentView
+@property (weak, nonatomic) IBOutlet UIView *productImageContentView;
+@property (nonatomic,strong)NSMutableArray *productImageViewArr;//产品imageViews数组，方便管理
+
 //要上传的产品模型
 @property(nonatomic,strong)UploadProductModel *uploadProductModel;
 //选择规格的两个按钮
@@ -48,20 +60,42 @@
 @property (weak, nonatomic) IBOutlet UIView *uploadSuccessView;
 
 
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *productBackViewHeightLayout;//产品图片的高度，当有图片的时候高度大。没有图片高度小
-
-
 @end
 
 @implementation UploadProductViewController
 - (IBAction)leftBarButtonAction:(UIBarButtonItem *)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
+- (IBAction)rightBarButtonAction:(UIBarButtonItem *)sender {
+    NewsViewController *newsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"newsViewController"];
+    [self.navigationController pushViewController:newsVC animated:YES];
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     
+    BOOL isContainImages = NO;
+    
+    for (NSString *tempImageStr in self.uploadProductModel.productImageArr) {
+        if (tempImageStr.length > 0) {
+            isContainImages = YES;
+            break;
+        }
+    }
+    //如果这个模型中，没有图片，
+    if (isContainImages == NO) {
+        self.headLayout.constant = 145;
+        self.noImgBackView.hidden = NO;
+        self.imgBackView.hidden = YES;
+        
+    }else {
+        //如果这个模型中有图片
+        self.headLayout.constant = kScreenW/3*2+1;
+        self.noImgBackView.hidden = YES;
+        self.imgBackView.hidden = NO;
+        //有图片，就给图片赋值
+        [self updateImageUI];
+    }
     
 }
 
@@ -72,6 +106,13 @@
         self.title = @"添加产品";
     }else {
         self.title = @"修改产品";
+    }
+    
+    //在scrollView上加imageView
+    for (int i = 0; i < 6; i++) {
+        UIImageView *productImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenW*i, 0, kScreenW, kScreenW/3*2)];
+        [self.productImageContentView addSubview:productImageView];
+        [self.productImageViewArr addObject:productImageView];
     }
     
     
@@ -95,7 +136,7 @@
         self.uploadProductModel.product_NH = self.tempProductModel.A_NH;
         self.uploadProductModel.productDosageId = self.tempProductModel.A_DOSAGE;
         self.uploadProductModel.productCodeId = self.tempProductModel.A_CODE;
-        
+        //刷新产品内容UI
         [self updateProductUI];
         
     }else {
@@ -106,33 +147,35 @@
         self.uploadProductModel.productDosageId = @"";
     }
     
-    
-#warning 假图片
-    self.uploadProductModel.productImageArr = [NSMutableArray array];
-    for (int i = 0; i < 5; i++) {
-        [self.uploadProductModel.productImageArr addObject:@"20179/9/E5B93C5CFCA94E30B6C501BC4DCA7F4B.jpg"];
-
-    }
-    
-    
-    
     Manager *manager = [Manager shareInstance];
     //请求分类
     [manager httpProductClassWithClassSuccess:^(id successResult) {
         self.classArr = successResult;
     } withClassFail:^(NSString *failResultStr) {
     }];
+    
     //请求剂量
     [manager httpProductDosageWithDosageSuccess:^(id successResult) {
         self.dosageArr = successResult;
     } withDosageFail:^(NSString *failResultStr) {
     }];
-    
-    
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    [SVProgressHUD dismiss];
     
 }
 
+- (NSMutableArray *)productImageViewArr {
+    if (_productImageViewArr == nil) {
+        self.productImageViewArr = [NSMutableArray array];
+    }
+    return _productImageViewArr;
+}
+
 #pragma mark - 刷新一下UI -
+//刷新产品内容UI(不含图片)
 - (void)updateProductUI {
     
     [self.selectFormatButtonOne setTitle:self.uploadProductModel.productStandardOne forState:UIControlStateNormal];
@@ -150,14 +193,29 @@
     [self.codeButton setTitle:self.tempProductModel.A_VALUE forState:UIControlStateNormal];
     [self.dosageButton setTitle:self.tempProductModel.A_DOSAGE_VALUE forState:UIControlStateNormal];
     self.HNTextView.text = self.uploadProductModel.product_NH;
-    
-    
-    
 }
 
+//刷新产品图片UI
+- (void)updateImageUI {
+    for (int i = 0; i < self.uploadProductModel.productImageArr.count; i++) {
+        UIImageView *tempImageView = self.productImageViewArr[i];
 
+        if ([self.uploadProductModel.productImageArr[i] length] > 0) {
+            [tempImageView setWebImageURLWithImageUrlStr:self.uploadProductModel.productImageArr[i] withErrorImage:nil withIsCenter:NO];
+        }else {
+            tempImageView.image = nil;
+        }
+    }
+}
+
+#pragma mark - scrollView Delegate -
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    NSInteger index = scrollView.contentOffset.x/scrollView.frame.size.width;
+    self.pageLabel.text = [NSString stringWithFormat:@"%ld/6",index+1];
+}
 
 #pragma mark - 上传图片按钮 -
+// 到上传图片界面
 - (IBAction)uploadProductImageAction:(UIButton *)sender {
 
     [self performSegueWithIdentifier:@"uploadProductToSelectProductImageVC" sender:sender];
@@ -187,6 +245,7 @@
                 //给button赋值
                 NSLog(@"%@",tempModel.d_value);
                 [sender setTitle:tempModel.d_value forState:UIControlStateNormal];
+                [sender setTitleColor:k333333Color forState:UIControlStateNormal];
                 
             }];
             [alertC addAction:action1];
@@ -208,6 +267,8 @@
                 //给button赋值
                 NSLog(@"%@",tempModel.dosageValue);
                 [sender setTitle:tempModel.dosageValue forState:UIControlStateNormal];
+                [sender setTitleColor:k333333Color forState:UIControlStateNormal];
+
                 
             }];
             [alertC addAction:action1];
@@ -226,32 +287,18 @@
     AlertManager *alertM = [AlertManager shareIntance];
     NSString *errorStr = @"";
     
-    if (self.nameTextField.text.length > 0) {
-        self.uploadProductModel.productName = self.nameTextField.text;
+    if (self.HNTextView.text.length > 0) {
+        self.uploadProductModel.product_NH = self.HNTextView.text;
+    }else{
+        errorStr = @"请填写产品的用法用量";
     }
     
-    if (![self.standardTextFieldOne.text isEqualToString:@"0ml"] && ![self.standardTextFieldTwo.text isEqualToString:@"0"]) {
-        self.uploadProductModel.productStandard = [NSString stringWithFormat:@"%@*%@", self.standardTextFieldOne.text ,self.standardTextFieldTwo.text];
-    }else{
-        errorStr = @"请输入规格";
+    if (self.uploadProductModel.productDosageId.length <= 0) {
+        errorStr = @"请选择剂型";
     }
     
-    if (self.ingrendientTextField.text.length > 0) {
-        self.uploadProductModel.productIngrendient = self.ingrendientTextField.text;
-    }else{
-        errorStr = @"请输入成分";
-    }
-    
-    if (self.factoryTextField.text.length > 0) {
-        self.uploadProductModel.factory_name = self.factoryTextField.text;
-    }else{
-        errorStr = @"请输入厂家";
-    }
-    
-    if (self.priceTextField.text.length > 0) {
-        self.uploadProductModel.productPrice = self.priceTextField.text;
-    }else{
-        errorStr = @"请输入报价";
+    if (self.uploadProductModel.productCodeId.length <= 0) {
+        errorStr = @"请选择分类";
     }
     
     if (self.inventoryTextField.text.length > 0) {
@@ -260,18 +307,44 @@
         errorStr = @"请输入库存";
     }
     
-    if (self.HNTextView.text.length > 0) {
-        self.uploadProductModel.product_NH = self.HNTextView.text;
+    if (self.priceTextField.text.length > 0) {
+        self.uploadProductModel.productPrice = self.priceTextField.text;
     }else{
-        errorStr = @"请输入简介";
+        errorStr = @"请输入报价";
     }
     
-    if (self.uploadProductModel.productCodeId.length <= 0) {
-        errorStr = @"请选择分类";
+    if (self.factoryTextField.text.length > 0) {
+        self.uploadProductModel.factory_name = self.factoryTextField.text;
+    }else{
+        errorStr = @"请输入厂家";
     }
     
-    if (self.uploadProductModel.productDosageId.length <= 0) {
-        errorStr = @"请选择剂型";
+    if (self.ingrendientTextField.text.length > 0) {
+        self.uploadProductModel.productIngrendient = self.ingrendientTextField.text;
+    }else{
+        errorStr = @"请输入成分";
+    }
+    
+    if ([self.uploadProductModel.productImageArr[2] length] == 0) {
+        errorStr = @"请上传PD证";
+    }
+    if ([self.uploadProductModel.productImageArr[1] length] == 0) {
+        errorStr = @"请上传产品反面";
+    }
+    if ([self.uploadProductModel.productImageArr[0] length] == 0) {
+        errorStr = @"请上传产品正面";
+    }
+    
+    if (![self.standardTextFieldOne.text isEqualToString:@"0ml"] && ![self.standardTextFieldTwo.text isEqualToString:@"0"]) {
+        self.uploadProductModel.productStandard = [NSString stringWithFormat:@"%@*%@", self.standardTextFieldOne.text ,self.standardTextFieldTwo.text];
+    }else{
+        errorStr = @"请输入规格";
+    }
+    
+    if (self.nameTextField.text.length > 0) {
+        self.uploadProductModel.productName = self.nameTextField.text;
+    }else {
+        errorStr = @"请输入产品名";
     }
     
     if ([errorStr isEqualToString:@""]) {
@@ -348,6 +421,12 @@
         };
     }
     
+    //上传图片
+    if ([segue.identifier isEqualToString:@"uploadProductToSelectProductImageVC"]) {
+        SelectProductImageViewController *selectImgVC = [segue destinationViewController];
+        selectImgVC.tempUploadProductModel = self.uploadProductModel;
+        
+    }
     
 }
 

@@ -32,6 +32,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+    
     //显示Navigate
     Manager *manager = [Manager shareInstance];
     [self.navigationController.navigationBar setBackgroundImage:[manager getImageWithAlpha:1] forBarMetrics:UIBarMetricsDefault];
