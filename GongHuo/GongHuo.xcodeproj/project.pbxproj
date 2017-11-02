@@ -67,6 +67,8 @@
 		455845011FA972EA00B4C007 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 455844F81FA9637200B4C007 /* SVProgressAnimatedView.m */; };
 		455845021FA972EA00B4C007 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 455844FC1FA9637200B4C007 /* SVProgressHUD.m */; };
 		455845031FA972EA00B4C007 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 455844FE1FA9637200B4C007 /* SVRadialGradientLayer.m */; };
+		455845061FA9A1F200B4C007 /* icon_tx@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 455845051FA9A1CE00B4C007 /* icon_tx@2x.png */; };
+		455845071FA9A1F200B4C007 /* icon_tx@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 455845041FA9A1C800B4C007 /* icon_tx@3x.png */; };
 		45647B061F93A25100EC20DA /* RegisterHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45647B051F93A25100EC20DA /* RegisterHeaderView.xib */; };
 		45647B091F93A27500EC20DA /* RegisterHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45647B081F93A27500EC20DA /* RegisterHeaderView.m */; };
 		4565D0521F7A30700051F02A /* UIImageView+ImageViewCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4565D0511F7A30700051F02A /* UIImageView+ImageViewCategory.m */; };
@@ -343,6 +345,8 @@
 		455844FC1FA9637200B4C007 /* SVProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		455844FD1FA9637200B4C007 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
 		455844FE1FA9637200B4C007 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
+		455845041FA9A1C800B4C007 /* icon_tx@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_tx@3x.png"; sourceTree = "<group>"; };
+		455845051FA9A1CE00B4C007 /* icon_tx@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_tx@2x.png"; sourceTree = "<group>"; };
 		45647B051F93A25100EC20DA /* RegisterHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterHeaderView.xib; sourceTree = "<group>"; };
 		45647B071F93A27500EC20DA /* RegisterHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterHeaderView.h; sourceTree = "<group>"; };
 		45647B081F93A27500EC20DA /* RegisterHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterHeaderView.m; sourceTree = "<group>"; };
@@ -1271,6 +1275,8 @@
 				4565D48D1F960079008E223D /* icon_tjgn@3x.png */,
 				45B8C0181F0A2F6000F21C55 /* btn_supply@2x.png */,
 				45B8C0191F0A2F6000F21C55 /* btn_supply@3x.png */,
+				455845051FA9A1CE00B4C007 /* icon_tx@2x.png */,
+				455845041FA9A1C800B4C007 /* icon_tx@3x.png */,
 			);
 			path = "首页";
 			sourceTree = "<group>";
@@ -1409,6 +1415,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				455845061FA9A1F200B4C007 /* icon_tx@2x.png in Resources */,
+				455845071FA9A1F200B4C007 /* icon_tx@3x.png in Resources */,
 				455844FF1FA972CF00B4C007 /* SVProgressHUD.bundle in Resources */,
 				454796DF1FA6DB01009DACB9 /* server.cer in Resources */,
 				45C6619C1FA2C5BE006ED1B8 /* userProtocol_normal@2x.png in Resources */,

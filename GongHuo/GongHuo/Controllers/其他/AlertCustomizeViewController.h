@@ -8,19 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "PlaceholdTextView.h"
+#import "Manager.h"
 //枚举是那个自定义的alertView
 typedef NS_ENUM(NSInteger , AlertTypeInt) {
     alertOne,//下架
-    alertTwo//修改库存 修改价格
+    alertTwo,//修改库存 修改价格
+    alertThree//新订单提醒
 };
 
 //点击返回的block
 typedef void(^EnterBlock)(id enterBLock);
 
 @interface AlertCustomizeViewController : UIViewController
+
 //背景图片
 @property (nonatomic,strong)UIImage *backImg;
-
 
 //type编号，是哪一个alertView
 @property(nonatomic,assign)AlertTypeInt alertTypeInt;
@@ -35,7 +37,6 @@ typedef void(^EnterBlock)(id enterBLock);
 @property (weak, nonatomic) IBOutlet PlaceholdTextView *reasonTextView;//下架原因
 
 
-
 //第二个alertView 修改库存 修改价格
 @property (weak, nonatomic) IBOutlet UIView *alertTwoView;
 @property (weak, nonatomic) IBOutlet UILabel *alertTwoTitleLabel;
@@ -45,6 +46,10 @@ typedef void(^EnterBlock)(id enterBLock);
 @property (weak, nonatomic) IBOutlet UITextField *numberTextField;//数量价格textField
 
 
+//第三个alertView 订单提醒
+@property (weak, nonatomic) IBOutlet UIView *alertThreeView;
+@property (nonatomic,assign) NSInteger timeCount;//剩余时间
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 
 @end

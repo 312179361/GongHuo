@@ -176,6 +176,10 @@ typedef void(^FailResult)(NSString *failResultStr);
 #pragma mark - 压缩 -
 - (UIImage *)compressOriginalImage:(UIImage *)originalImage toMaxDataSizeKBytes:(CGFloat)size;
 
+#pragma mark - 时间转换 -
+//传入 秒  得到 xx:xx:xx
+-(NSString *)getHHMMSSFromSS:(NSInteger)totalTime;
+
 #pragma mark - 隐藏navigationBar -
 //隐藏navigationBar下面的那条线
 - (void)isClearNavigationBarLine:(BOOL )hideLine withNavigationController:(UINavigationController *)navi;

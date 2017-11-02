@@ -11,8 +11,10 @@
 @interface AlertCustomizeViewController ()
 //第一个AlertView
 @property(nonatomic,assign)NSInteger selectShelfInt;//选择下架原因 0不代理 1无货 2其他
-
 @property (weak, nonatomic) IBOutlet UIImageView *backImgView;
+
+//定时器
+@property (nonatomic,strong)NSTimer *tempTimer;
 
 @end
 
@@ -26,7 +28,8 @@
     
     self.alertOneView.hidden = YES;
     self.alertTwoView.hidden = YES;
-    
+    self.alertThreeView.hidden = YES;
+
     
     switch (self.alertTypeInt) {
         case alertOne:
@@ -38,7 +41,10 @@
             [self showAlertViewTwo];
             break;
         
-        
+        case alertThree:
+            self.alertThreeView.hidden = NO;
+            [self showAlertViewThree];
+            break;
         default:
             break;
     }
@@ -130,14 +136,49 @@
         //
         [alertM showAlertViewWithTitle:@"您没有做任何修改" withMessage:nil actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:nil];
     }
-    
-    
-    
 }
 
 - (IBAction)alertTwoCloseBtnAction:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark - 第三个alertView显示 -
+- (void)showAlertViewThree {
+    self.alertThreeView.hidden = NO;
+    self.timeLabel.text = @"00:00:00";
+    Manager *manager = [Manager shareInstance];
+    self.timeLabel.text = [manager getHHMMSSFromSS:self.timeCount];
+    //创建定时器。
+    self.tempTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerAction:) userInfo:nil repeats:YES];
+    
+}
+
+- (void)timerAction:(NSTimer *)timer {
+    Manager *manager = [Manager shareInstance];
+
+    self.timeCount--;
+    if (self.timeCount >= 0) {
+        self.timeLabel.text = [manager getHHMMSSFromSS:self.timeCount];
+    }else {
+        //停止定时器
+        [self.tempTimer invalidate];
+    }
+    
+}
+
+- (IBAction)alertThreeEnterBtnAction:(UIButton *)sender {
+    self.enterBlock(@"跳转到订单列表");
+    //停止定时器
+    [self.tempTimer invalidate];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)alertThreeCloseBtnAction:(UIButton *)sender {
+    //停止定时器
+    [self.tempTimer invalidate];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 
 - (void)didReceiveMemoryWarning {

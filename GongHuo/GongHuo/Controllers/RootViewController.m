@@ -14,6 +14,7 @@
 #import "UploadProductViewController.h"
 #import "NewsViewController.h"
 #import "SVProgressHUD.h"
+#import "AlertCustomizeViewController.h"
 @interface RootViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 
@@ -143,10 +144,16 @@
     Manager *manager = [Manager shareInstance];
     
     [manager httpIsNewOrderWithAFID:manager.memberInfoModel.l_s_id withIsNewSuccess:^(id successResult) {
-        //计算时间
-        
-//        orderListModel.etm - orderListModel.time
-        
+                
+        AlertCustomizeViewController *alertVC = [self.storyboard instantiateViewControllerWithIdentifier:@"alertCustomizeVC"];
+        alertVC.backImg = [manager screenShot];
+        alertVC.alertTypeInt = alertThree;
+        alertVC.timeCount = [successResult integerValue];
+        alertVC.enterBlock = ^(id enterBLock) {
+            //跳转到订单中心
+            [self performSegueWithIdentifier:@"rootToOrderListVC" sender:nil];
+        };
+        [self presentViewController:alertVC animated:NO completion:nil];
         
     } withIsNewFail:^(NSString *failResultStr) {
         

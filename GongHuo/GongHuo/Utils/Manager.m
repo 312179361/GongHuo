@@ -479,12 +479,22 @@
     NSDictionary *parDic = @{@"access":[self digest:[NSString stringWithFormat:@"%@%@",iM.appKey,[iM order_fresh_Base]]],@"route":[iM order_fresh_Base],@"params":@{@"A_F_ID":a_f_id}};
     
     [[NetManager shareInstance] postRequestWithURL:[iM mainUrl] withParameters:parDic withResponseType:nil withContentTypes:nil withSuccessResult:^(AFHTTPRequestOperation *operation, id successResult) {
+        //        orderListModel.etm - orderListModel.time
+
+
+        
         if ([[successResult objectForKey:@"status"]integerValue] == 200) {
-            isNewSuccess([successResult objectForKey:@"data"]);
+            NSInteger etm = [[[successResult objectForKey:@"data"] objectForKey:@"etm"] integerValue];
+            NSInteger nowTime = [[[successResult objectForKey:@"data"] objectForKey:@"time"] integerValue];
+            
+            NSString *timeStr = [NSString stringWithFormat:@"%ld",etm - nowTime];
+            
+            isNewSuccess(timeStr);
             
         }else {
             isNewFail([successResult objectForKey:@"msg"]);
         }
+        
     } withError:^(AFHTTPRequestOperation *operation, NSError *errorResult) {
         isNewFail(@"网络错误");
     }];
@@ -1415,6 +1425,25 @@
     
     
 }
+
+#pragma mark - 时间转换 -
+//传入 秒  得到 xx:xx:xx
+-(NSString *)getHHMMSSFromSS:(NSInteger)totalTime {
+    
+//    NSInteger seconds = [totalTime integerValue];
+    
+    //format of hour
+    NSString *str_hour = [NSString stringWithFormat:@"%02ld",totalTime/3600];
+    //format of minute
+    NSString *str_minute = [NSString stringWithFormat:@"%02ld",(totalTime % 3600)/60];
+    //format of second
+    NSString *str_second = [NSString stringWithFormat:@"%02ld",totalTime % 60];
+    //format of time
+    NSString *format_time = [NSString stringWithFormat:@"%@:%@:%@",str_hour,str_minute,str_second];
+    
+    return format_time;
+}
+
 
 #pragma mark - 隐藏navigationBar -
 //隐藏navigationBar下面的那条线

@@ -22,9 +22,9 @@
 
 - (NSString *)mainUrl {
     //本地
-//    return @"http://ybsat.vicp.io/";
+    return @"http://ybsat.vicp.io/";
     //线上
-    return @"https://apigh.nongyao001.com/";
+//    return @"https://apigh.nongyao001.com/";
     
 }
 
