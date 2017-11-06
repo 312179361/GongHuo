@@ -17,7 +17,7 @@
         self.headerTypeLabel.text = @"收货人信息";
     }
 
-    self.addressLabel.text = [NSString stringWithFormat:@"放假额if金额if将诶接飞机覅额积分费覅恩飞机额if就%@", tempModel.address];
+    self.addressLabel.text =  tempModel.address;
     self.nameLabel.text = tempModel.name;
     self.mobileLabel.text = tempModel.mobile;
 }

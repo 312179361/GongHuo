@@ -335,7 +335,7 @@
         errorStr = @"请上传产品正面";
     }
     
-    if (![self.standardTextFieldOne.text isEqualToString:@"0ml"] && ![self.standardTextFieldTwo.text isEqualToString:@"0"]) {
+    if (self.standardTextFieldOne.text.length > 0 && self.standardTextFieldTwo.text.length > 0) {
         self.uploadProductModel.productStandard = [NSString stringWithFormat:@"%@*%@", self.standardTextFieldOne.text ,self.standardTextFieldTwo.text];
     }else{
         errorStr = @"请输入规格";
@@ -375,7 +375,7 @@
         
     }else {
         NSLog(@"%@",errorStr);
-        [alertM showAlertViewWithTitle:@"错误" withMessage:errorStr actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:nil];
+        [alertM showAlertViewWithTitle:@"暂不能上传产品" withMessage:errorStr actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:nil];
 
     }
 }

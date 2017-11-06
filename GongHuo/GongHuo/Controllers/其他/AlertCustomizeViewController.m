@@ -94,11 +94,11 @@
       @"reasonStr":self.reasonTextView.text};
     
     self.enterBlock(enterBlockDic);
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 
 }
 - (IBAction)alertOneCloseBtnAction:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 
@@ -131,7 +131,7 @@
     
     if ( self.numberTextField.text != self.oldNumberStr) {
         self.enterBlock(self.numberTextField.text);
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:NO completion:nil];
     }else {
         //
         [alertM showAlertViewWithTitle:@"您没有做任何修改" withMessage:nil actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:nil];
@@ -139,7 +139,7 @@
 }
 
 - (IBAction)alertTwoCloseBtnAction:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 #pragma mark - 第三个alertView显示 -
@@ -170,13 +170,13 @@
     self.enterBlock(@"跳转到订单列表");
     //停止定时器
     [self.tempTimer invalidate];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (IBAction)alertThreeCloseBtnAction:(UIButton *)sender {
     //停止定时器
     [self.tempTimer invalidate];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 

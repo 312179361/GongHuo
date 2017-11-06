@@ -102,11 +102,9 @@
     [self.navigationController.navigationBar setBackgroundImage:[manager getImageWithAlpha:alpha] forBarMetrics:UIBarMetricsDefault];
     //改变通知按钮的颜色
     if (alpha>0.6) {
-        self.navigationItem.rightBarButtonItem.tintColor = kColor(57, 209, 103, 1);
         [manager isClearNavigationBarLine:NO withNavigationController:self.navigationController];
         
     }else{
-        self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
         [manager isClearNavigationBarLine:YES withNavigationController:self.navigationController];
     }
 }

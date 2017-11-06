@@ -480,16 +480,17 @@
     
     [[NetManager shareInstance] postRequestWithURL:[iM mainUrl] withParameters:parDic withResponseType:nil withContentTypes:nil withSuccessResult:^(AFHTTPRequestOperation *operation, id successResult) {
         //        orderListModel.etm - orderListModel.time
-
-
         
         if ([[successResult objectForKey:@"status"]integerValue] == 200) {
             NSInteger etm = [[[successResult objectForKey:@"data"] objectForKey:@"etm"] integerValue];
             NSInteger nowTime = [[[successResult objectForKey:@"data"] objectForKey:@"time"] integerValue];
-            
-            NSString *timeStr = [NSString stringWithFormat:@"%ld",etm - nowTime];
-            
-            isNewSuccess(timeStr);
+            if (etm - nowTime > 0) {
+                NSString *timeStr = [NSString stringWithFormat:@"%ld",etm - nowTime];
+                
+                isNewSuccess(timeStr);
+            }else {
+                isNewFail(@"已经超时");
+            }
             
         }else {
             isNewFail([successResult objectForKey:@"msg"]);

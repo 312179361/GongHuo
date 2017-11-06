@@ -32,11 +32,11 @@
 @implementation SelectFormatViewController
 - (IBAction)backButtonOneAction:(UIButton *)sender {
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 - (IBAction)backButtonTwoAction:(UIButton *)sender {
 
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)viewDidLoad {

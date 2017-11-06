@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="aXp-MS-Zup">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="aXp-MS-Zup">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -4951,11 +4951,6 @@
                                 <action selector="leftBarButtonAction:" destination="KQm-Nc-0nf" id="lpc-Z8-Q5T"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="icon_news.png" id="V2b-4l-1Yl">
-                            <connections>
-                                <action selector="rightBarButtonAction:" destination="KQm-Nc-0nf" id="44Y-Bz-i6W"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="backCardView" destination="6d2-VK-4Fv" id="XFp-Hz-9dt"/>
@@ -5134,11 +5129,6 @@
                                 <action selector="leftBarButtonAction:" destination="Lpa-bz-28O" id="VDP-Sq-oBK"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="icon_news.png" id="7gk-R5-Obx">
-                            <connections>
-                                <action selector="rightBarButtonAction:" destination="Lpa-bz-28O" id="sJH-FN-RdX"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="codeTextField" destination="XV0-Dv-55g" id="opm-Vr-711"/>
@@ -5291,11 +5281,6 @@
                                 <action selector="leftBarButtonAction:" destination="gLC-UU-kQj" id="Y6Y-Fu-mTg"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="icon_news.png" id="63t-VI-DF1">
-                            <connections>
-                                <action selector="rightBaButtonAction:" destination="gLC-UU-kQj" id="Cp0-i6-3eD"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="nameLabel" destination="1ri-C9-GdJ" id="94y-eS-NWC"/>
@@ -5423,7 +5408,7 @@
                                                             <constraint firstAttribute="height" constant="14" id="KPA-pr-Ppe"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -5626,7 +5611,7 @@
                                                             <constraint firstAttribute="height" constant="1" id="zAh-2T-bsh"/>
                                                         </constraints>
                                                     </view>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0ml" placeholder="0g/ml" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jSr-i6-9R6">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0g/ml" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jSr-i6-9R6">
                                                         <rect key="frame" x="67" y="0.0" width="142" height="49"/>
                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -5685,7 +5670,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" placeholder="0" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ryn-GL-91r">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ryn-GL-91r">
                                                         <rect key="frame" x="219" y="0.0" width="50" height="49"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="50" id="dBx-ns-Vwm"/>
@@ -5976,7 +5961,7 @@
                         <outlet property="standardTextFieldTwo" destination="Ryn-GL-91r" id="sFE-od-xTX"/>
                         <outlet property="uploadSuccessView" destination="3Nj-X5-0lL" id="vku-rs-VVn"/>
                         <segue destination="xAd-Ct-3ci" kind="show" identifier="uploadProductToSelectProductImageVC" id="x25-wN-QdF"/>
-                        <segue destination="Qjp-hE-gx4" kind="presentation" identifier="toSelectFormatVC" id="7cU-l6-0Kh"/>
+                        <segue destination="Qjp-hE-gx4" kind="presentation" identifier="toSelectFormatVC" animates="NO" id="7cU-l6-0Kh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lxB-wt-x0h" userLabel="First Responder" sceneMemberID="firstResponder"/>
