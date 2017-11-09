@@ -12,7 +12,7 @@
 #import "PlaceholdTextView.h"
 #import "SendCerViewController.h"
 #import "UIImageView+ImageViewCategory.h"
-@interface SendDetailViewController ()
+@interface SendDetailViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 //view1
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;//收货人地址
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;//收货人姓名
@@ -33,9 +33,11 @@
 @property (weak, nonatomic) IBOutlet PlaceholdTextView *sendReMarkTextView;//备注
 @property (nonatomic,strong)NSString *imgUrl;
 
+@property(nonatomic,strong)UIImagePickerController *picker;
 @end
 
 @implementation SendDetailViewController
+
 - (IBAction)leftBarButtonAction:(UIBarButtonItem *)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -43,6 +45,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //初始化图片选择器
+    self.picker = [[UIImagePickerController alloc]init];
+    self.picker.delegate = self;
+    
     //刷新view1
     [self updateViewOne];
 }
@@ -67,20 +73,117 @@
 
 //上传发货单
 - (IBAction)uploadSendCerTapAction:(UITapGestureRecognizer *)sender {
-
+    [self selectCameraOrPhoto];
     
+}
+
+#pragma mark - 选择相机或者图库 -
+- (void)selectCameraOrPhoto {
+    //弹出相机或者图库的选择器
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"拍照" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+        [self takePhotoForCamera];
+    }];
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"相册选取" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+        [self takePhotoForPhotoAlbum];
+    }];
+    UIAlertAction *action3 = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil];
+    [alertC addAction:action1];
+    [alertC addAction:action2];
+    [alertC addAction:action3];
+    [self presentViewController:alertC animated:YES completion:nil];
+}
+
+//通过照相机选取图片
+- (void)takePhotoForCamera {
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        
+        self.picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        self.picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
+        self.picker.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+        //        picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+        self.picker.allowsEditing = YES;
+        
+    }else{
+        NSLog(@"摄像头无法打开");
+    }
+    [self presentViewController:self.picker animated:YES completion:nil];
+    
+}
+
+//通过相册选取图片
+- (void)takePhotoForPhotoAlbum {
+    self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    self.picker.allowsEditing = YES;
+    [self presentViewController:self.picker animated:YES completion:nil];
+}
+
+#pragma mark - 拍照的代理方法 -
+//当得到照片
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    
+    Manager *manager = [Manager shareInstance];
+    
+    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+    if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
+        UIImage *tempImage = nil;
+        
+        if ([picker allowsEditing]) {
+            tempImage = [info objectForKey:UIImagePickerControllerEditedImage];
+        }else{
+            tempImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+        }
+        
+        
+        //给图片进行压缩
+        UIImage *submitImg = [manager compressOriginalImage:tempImage toMaxDataSizeKBytes:100];
+        //图片上传
+        [self httpUploadImageWithImg:submitImg withUpSuccess:^(id successResult) {
+            //赋值
+            self.sendCerImageView.contentMode = UIViewContentModeScaleToFill;
+            self.sendCerImageView.image = tempImage;
+            self.sendCerLabel.hidden = YES;
+        }];
+        
+    }
+    //隐藏UIImagePickerController
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+//当用户取消时
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    //隐藏UIImagePickerController
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 
 
+#pragma mark - 上传照片 -
+//上传图片
+- (void)httpUploadImageWithImg:(UIImage *)uploadImg withUpSuccess:(SuccessResult)upSuccess {
+    
+    Manager *manager = [Manager shareInstance];
+    AlertManager *alertM = [AlertManager shareIntance];
+    
+    [manager uploadImageWithUploadImage:uploadImg withUploadSuccess:^(id successResult) {
+        //上传成功
+        self.imgUrl = successResult;
+        upSuccess(@"上传成功");
+    } withUploadFail:^(NSString *failResultStr) {
+        
+        [alertM showAlertViewWithTitle:@"上传发货单失败" withMessage:failResultStr actionTitleArr:@[@"确定"] withViewController:self withReturnCodeBlock:nil];
+    }];
+}
 
+
+#pragma mark - 提交发货 -
 //提交发货
 - (IBAction)sendButtonAction:(UIButton *)sender {
     
     Manager *manager = [Manager shareInstance];
     AlertManager *alertM = [AlertManager shareIntance];
     //假图片
-    self.imgUrl = @"20179/9/E5B93C5CFCA94E30B6C501BC4DCA7F4B.jpg";
+//    self.imgUrl = @"20179/9/E5B93C5CFCA94E30B6C501BC4DCA7F4B.jpg";
     NSString *error;
     if (self.imgUrl == nil || [self.imgUrl isEqualToString:@""]) {
         error = @"没有上传图片";

@@ -2998,7 +2998,7 @@
                                 <rect key="frame" x="0.0" y="114" width="375" height="553"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="orderListHeadCell" rowHeight="130" id="yDP-ua-ePR" customClass="OrderListHeaderTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="orderListHeadCell" rowHeight="130" id="yDP-ua-ePR" customClass="OrderListHeaderTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yDP-ua-ePR" id="3HI-2K-vEa">
@@ -3031,8 +3031,8 @@
                                                                 <constraint firstAttribute="height" constant="1" id="Tn3-BG-O5O"/>
                                                             </constraints>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未知地址未知地址未知地址未知地址未知地址未知地址未知地址未知地址" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWa-mj-c67">
-                                                            <rect key="frame" x="10" y="11" width="355" height="33.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未知地址" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWa-mj-c67">
+                                                            <rect key="frame" x="15" y="11" width="345" height="33.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -3074,12 +3074,12 @@
                                                         <constraint firstAttribute="bottom" secondItem="dvE-VW-4sq" secondAttribute="bottom" constant="12" id="KJQ-KO-1Xu"/>
                                                         <constraint firstItem="arM-28-JCB" firstAttribute="leading" secondItem="yF1-2u-Cpc" secondAttribute="leading" id="Opg-vP-zMn"/>
                                                         <constraint firstItem="dvE-VW-4sq" firstAttribute="top" secondItem="QWa-mj-c67" secondAttribute="bottom" constant="15" id="VUV-q1-Gv4"/>
-                                                        <constraint firstAttribute="trailing" secondItem="QWa-mj-c67" secondAttribute="trailing" constant="10" id="WPC-Mb-NnX"/>
+                                                        <constraint firstAttribute="trailing" secondItem="QWa-mj-c67" secondAttribute="trailing" constant="15" id="WPC-Mb-NnX"/>
                                                         <constraint firstItem="ja0-dU-Rpx" firstAttribute="leading" secondItem="dvE-VW-4sq" secondAttribute="trailing" constant="20" id="XN6-sU-t47"/>
                                                         <constraint firstItem="cda-iY-dCP" firstAttribute="leading" secondItem="yF1-2u-Cpc" secondAttribute="leading" constant="15" id="XZZ-3J-N8l"/>
                                                         <constraint firstItem="dvE-VW-4sq" firstAttribute="leading" secondItem="cda-iY-dCP" secondAttribute="trailing" id="ZRA-ET-JTU"/>
                                                         <constraint firstAttribute="bottom" secondItem="cda-iY-dCP" secondAttribute="bottom" constant="12" id="cDY-c7-Vwg"/>
-                                                        <constraint firstItem="QWa-mj-c67" firstAttribute="leading" secondItem="yF1-2u-Cpc" secondAttribute="leading" constant="10" id="ech-FK-44V"/>
+                                                        <constraint firstItem="QWa-mj-c67" firstAttribute="leading" secondItem="yF1-2u-Cpc" secondAttribute="leading" constant="15" id="ech-FK-44V"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -3105,7 +3105,7 @@
                                             <outlet property="nameLabel" destination="dvE-VW-4sq" id="b3q-Kj-Bvb"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="orderListOneCell" rowHeight="100" id="ngt-zo-RcD" customClass="OrderListOneTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="orderListOneCell" rowHeight="100" id="ngt-zo-RcD" customClass="OrderListOneTableViewCell">
                                         <rect key="frame" x="0.0" y="158" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ngt-zo-RcD" id="ycP-6H-z8F">
@@ -3196,7 +3196,7 @@
                                             <outlet property="orderProductStandardLabel" destination="IMZ-LQ-3df" id="7Yr-5C-oU3"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="orderListTwoCell" rowHeight="134" id="uLz-B3-Gaq" customClass="OrderListTwoTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="orderListTwoCell" rowHeight="134" id="uLz-B3-Gaq" customClass="OrderListTwoTableViewCell">
                                         <rect key="frame" x="0.0" y="258" width="375" height="134"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uLz-B3-Gaq" id="CEc-dJ-FJu">
@@ -3321,7 +3321,7 @@
                                             <outlet property="orderProductStandardLabel" destination="FJm-AL-t1E" id="1IR-DL-QIP"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="orderListFootOneCell" rowHeight="87" id="RHh-6j-mmk" customClass="OrderListFootOneTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="orderListFootOneCell" rowHeight="87" id="RHh-6j-mmk" customClass="OrderListFootOneTableViewCell">
                                         <rect key="frame" x="0.0" y="392" width="375" height="87"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RHh-6j-mmk" id="HUG-9d-JbN">
@@ -3801,6 +3801,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="发货" id="iB6-Ag-4Yn">
                         <barButtonItem key="leftBarButtonItem" image="icon_back.png" id="kne-m5-boY">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="leftBarButtonAction:" destination="Jhf-iz-SWz" id="UcH-Ya-Pm5"/>
                             </connections>
@@ -3831,7 +3832,7 @@
             </objects>
             <point key="canvasLocation" x="63" y="2635"/>
         </scene>
-        <!--Send Success View Controller-->
+        <!--发货成功-->
         <scene sceneID="5Wi-8M-cZX">
             <objects>
                 <viewController id="S1p-4V-cB5" customClass="SendSuccessViewController" sceneMemberID="viewController">
@@ -3883,10 +3884,10 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W85-go-g5C">
-                                <rect key="frame" x="55" y="278" width="125" height="31.5"/>
+                                <rect key="frame" x="55" y="278" width="125" height="30"/>
                                 <color key="backgroundColor" red="0.96862745098039216" green="0.59999999999999998" blue="0.1803921568627451" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="W85-go-g5C" secondAttribute="height" multiplier="4:1" id="8aN-R5-7da"/>
+                                    <constraint firstAttribute="height" constant="30" id="y6c-00-7p1"/>
                                 </constraints>
                                 <state key="normal" title="继续发货">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3904,9 +3905,18 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2FH-ce-dd3">
                                 <rect key="frame" x="195" y="278" width="125" height="30"/>
                                 <color key="backgroundColor" red="0.98039215690000003" green="0.20784313730000001" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="O89-Ce-qCq"/>
+                                </constraints>
                                 <state key="normal" title="返回首页">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="backHomeButtonAction:" destination="S1p-4V-cB5" eventType="touchUpInside" id="mf2-cN-klf"/>
                                 </connections>
@@ -3925,6 +3935,11 @@
                             <constraint firstItem="2FH-ce-dd3" firstAttribute="leading" secondItem="W85-go-g5C" secondAttribute="trailing" constant="15" id="je6-fk-ADJ"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="发货成功" id="Fyb-mw-6kV">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="icon_back.png" id="Yze-gt-fB6">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dLm-qP-43G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -3947,7 +3962,7 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="j01-hK-JU4">
                                         <rect key="frame" x="35" y="53" width="305" height="155.5"/>
-                                        <color key="backgroundColor" red="0.96862745100000003" green="0.59999999999999998" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="j01-hK-JU4" secondAttribute="height" multiplier="618:315" id="9Kf-iX-0Rh"/>
                                         </constraints>
@@ -4038,6 +4053,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="发货单" id="Yh8-e6-jlo">
                         <barButtonItem key="leftBarButtonItem" image="icon_back.png" id="4yp-9a-oTb">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="leftBarButtonAction:" destination="cSK-mU-UJO" id="zFy-b2-38J"/>
                             </connections>
@@ -6832,6 +6848,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="EvB-50-SUa"/>
         <segue reference="K2e-YD-7Se"/>
-        <segue reference="POw-O1-neG"/>
+        <segue reference="1Fh-OQ-HdD"/>
     </inferredMetricsTieBreakers>
 </document>

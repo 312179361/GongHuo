@@ -7,10 +7,10 @@
 //
 
 #import "OrderListFootOneTableViewCell.h"
-
+#import "Manager.h"
 @implementation OrderListFootOneTableViewCell
 - (void)updateOrderCellWithModel:(OrderListModel *)tempModel withType:(NSString *)type withCellIndex:(NSIndexPath *)tempIndex {
-    
+    Manager *manager = [Manager shareInstance];
     /*type代表是待接单，还是待发货，
      如果是待接单，
      acceptOrderViewHeightLayout = 38;
@@ -29,13 +29,13 @@
         
         if (tempModel.isCountDown == YES) {
             //需要倒计时
+            
             self.footTwoViewHeightLayout.constant = 48;
-            self.acceptOrderTimeLabel.text = [NSString stringWithFormat:@"接单倒计时：%ld",tempModel.orderTimeCount];//接单倒计时
+            self.acceptOrderTimeLabel.text = [NSString stringWithFormat:@"接单倒计时：%@",[manager getHHMMSSFromSS:tempModel.orderTimeCount]];//接单倒计时
 
         }else{
             self.footTwoViewHeightLayout.constant = 0;
             self.acceptOrderTimeLabel.text = @"订单未处理";//接单倒计时
-
         }
     }
     
@@ -45,7 +45,7 @@
         self.footOneViewHeightLayout.constant = 0;
         self.footTwoViewHeightLayout.constant = 48;
         self.sendOrderTimeLabel.hidden = NO;
-        self.sendOrderTimeLabel.text = [NSString stringWithFormat:@"发货倒计时：%ld",tempModel.orderTimeCount];// 发货倒计时
+        self.sendOrderTimeLabel.text = [NSString stringWithFormat:@"发货倒计时：%@",[manager getHHMMSSFromSS:tempModel.orderTimeCount]];// 发货倒计时
         self.sendOrderTimeLabel.textColor = kMainColor;
         [self.bottomButton setTitle:@"发货" forState:UIControlStateNormal];
 
@@ -53,7 +53,7 @@
     
     
     if ([type isEqualToString:@"3"]) {
-        //待接单
+        //已完成
         self.footOneViewHeightLayout.constant = 38;
         self.footTwoViewHeightLayout.constant = 48;
         self.acceptOrderTimeLabel.hidden = YES;

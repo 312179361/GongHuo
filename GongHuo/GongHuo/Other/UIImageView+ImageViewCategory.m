@@ -8,11 +8,13 @@
 
 #import "UIImageView+ImageViewCategory.h"
 #import "UIImageView+WebCache.h"
+#import "InterfaceManager.h"
 @implementation UIImageView (ImageViewCategory)
 - (void)setWebImageURLWithImageUrlStr:(NSString *)imageUrlStr withErrorImage:(UIImage *)errorImage withIsCenter:(BOOL)isCenter {
 
+    InterfaceManager *interM = [InterfaceManager shareInstance];
     if (![imageUrlStr containsString:@"http"]) {
-        imageUrlStr = [NSString stringWithFormat:@"https://ima.nongyao001.com:7002/%@",imageUrlStr];
+        imageUrlStr = [NSString stringWithFormat:@"%@%@",[interM mainImageUrl],imageUrlStr];
 
         
     }

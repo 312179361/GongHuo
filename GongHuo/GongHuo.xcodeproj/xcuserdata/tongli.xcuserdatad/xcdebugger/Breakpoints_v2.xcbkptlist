@@ -16,104 +16,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GongHuo/Controllers/&#x8ba2;&#x5355;&#x4e2d;&#x5fc3;/SendDetailViewController.m"
-            timestampString = "529580762.410373"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
-            landmarkName = "-sendButtonAction:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[SendDetailViewController sendButtonAction:]"
-                  moduleName = "GongHuo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tongli/Desktop/%E5%85%AC%E5%8F%B8%E9%A1%B9%E7%9B%AE/%E4%BE%9B%E8%B4%A7%E5%95%86/GongHuo/GongHuo/Controllers/%E8%AE%A2%E5%8D%95%E4%B8%AD%E5%BF%83/SendDetailViewController.m"
-                  timestampString = "531643292.373592"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "98"
-                  endingLineNumber = "98"
-                  offsetFromSymbolStart = "1178">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__45-[SendDetailViewController sendButtonAction:]_block_invoke"
-                  moduleName = "GongHuo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tongli/Desktop/%E5%85%AC%E5%8F%B8%E9%A1%B9%E7%9B%AE/%E4%BE%9B%E8%B4%A7%E5%95%86/GongHuo/GongHuo/Controllers/%E8%AE%A2%E5%8D%95%E4%B8%AD%E5%BF%83/SendDetailViewController.m"
-                  timestampString = "531643292.376673"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "98"
-                  endingLineNumber = "98"
-                  offsetFromSymbolStart = "98">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__copy_helper_block_"
-                  moduleName = "GongHuo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tongli/Desktop/%E5%85%AC%E5%8F%B8%E9%A1%B9%E7%9B%AE/%E4%BE%9B%E8%B4%A7%E5%95%86/GongHuo/GongHuo/Controllers/%E8%AE%A2%E5%8D%95%E4%B8%AD%E5%BF%83/SendDetailViewController.m"
-                  timestampString = "531643292.3824"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "98"
-                  endingLineNumber = "98"
-                  offsetFromSymbolStart = "51">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_"
-                  moduleName = "GongHuo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tongli/Desktop/%E5%85%AC%E5%8F%B8%E9%A1%B9%E7%9B%AE/%E4%BE%9B%E8%B4%A7%E5%95%86/GongHuo/GongHuo/Controllers/%E8%AE%A2%E5%8D%95%E4%B8%AD%E5%BF%83/SendDetailViewController.m"
-                  timestampString = "531643292.38536"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "98"
-                  endingLineNumber = "98"
-                  offsetFromSymbolStart = "29">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__45-[SendDetailViewController sendButtonAction:]_block_invoke.91"
-                  moduleName = "GongHuo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tongli/Desktop/%E5%85%AC%E5%8F%B8%E9%A1%B9%E7%9B%AE/%E4%BE%9B%E8%B4%A7%E5%95%86/GongHuo/GongHuo/Controllers/%E8%AE%A2%E5%8D%95%E4%B8%AD%E5%BF%83/SendDetailViewController.m"
-                  timestampString = "531643292.389002"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "98"
-                  endingLineNumber = "98"
-                  offsetFromSymbolStart = "31">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GongHuo/Utils/Manager.m"
-            timestampString = "531643292.299889"
+            timestampString = "531730737.988531"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "711"
@@ -129,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GongHuo/Other/UIImageView+ImageViewCategory.m"
-            timestampString = "530790092.273545"
+            timestampString = "531732475.369463"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
             landmarkName = "-setWebImageURLWithImageUrlStr:withErrorImage:withIsCenter:"
             landmarkType = "7">
          </BreakpointContent>
@@ -145,7 +52,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GongHuo/Utils/Manager.m"
-            timestampString = "531643292.300056"
+            timestampString = "531730737.989084"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "449"
@@ -161,7 +68,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GongHuo/Utils/Manager.m"
-            timestampString = "531643292.300151"
+            timestampString = "531730737.989328"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "457"

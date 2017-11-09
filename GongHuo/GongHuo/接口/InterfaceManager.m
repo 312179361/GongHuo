@@ -23,10 +23,16 @@
 - (NSString *)mainUrl {
     //本地
 //    return @"http://ybsat.vicp.io/";
+    return @"http://17564j85u1.iok.la/";
     //线上
     return @"https://apigh.nongyao001.com/";
     
 }
+
+- (NSString *)mainImageUrl {
+    return @"https://ima.nongyao001.com:7002/";
+}
+
 
 
 #pragma mark - 审核中心 -

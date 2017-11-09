@@ -8,12 +8,15 @@
 
 #import "UIButton+UIButtonCategory.h"
 #import "UIButton+WebCache.h"
+#import "InterfaceManager.h"
 @implementation UIButton (UIButtonCategory)
 
 - (void)setWebImageURLWithImageUrlStr:(NSString *)imageUrlStr withErrorImage:(UIImage *)errorImage {
-    
+    InterfaceManager *interM = [InterfaceManager shareInstance];
+
     if (![imageUrlStr containsString:@"http"]) {
-        imageUrlStr = [NSString stringWithFormat:@"https://ima.nongyao001.com:7002/%@",imageUrlStr];
+
+        imageUrlStr = [NSString stringWithFormat:@"%@%@",[interM mainImageUrl], imageUrlStr];
         NSLog(@"---%@",imageUrlStr);
         
     }

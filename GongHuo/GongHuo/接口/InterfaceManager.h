@@ -13,6 +13,7 @@
 
 + (InterfaceManager *)shareInstance;
 - (NSString *)mainUrl;
+- (NSString *)mainImageUrl;
 
 #pragma mark - 审核中心 -
 //审核中心列表
