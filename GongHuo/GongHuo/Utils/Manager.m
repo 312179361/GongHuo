@@ -159,7 +159,7 @@
                                 @"A_STANDARD":[NSString stringWithFormat:@"%@%@/%@",uploadModel.productStandard,uploadModel.productStandardOne,uploadModel.productStandardTwo],
                                 @"A_PRICE_COST":uploadModel.productPrice,
                                 @"A_INVENTORY":uploadModel.productInventory,
-                                @"A_CODE":uploadModel.productCodeId,
+//                                @"A_CODE":uploadModel.productCodeId,
                                 @"A_NH":uploadModel.product_NH,
                                 @"A_IMAGE_1":uploadModel.productImageArr[0],
                                 @"A_IMAGE_2":uploadModel.productImageArr[1],
@@ -171,8 +171,8 @@
                                 @"A_PROPOSAL":@"",
                                 @"A_STATUS_DO":@"0",
                                 @"A_FACTORY_NAME":uploadModel.factory_name,
-                                @"A_INGREDIENT":uploadModel.productIngrendient,
-                                @"A_DOSAGE":uploadModel.productDosageId
+//                                @"A_INGREDIENT":uploadModel.productIngrendient,
+//                                @"A_DOSAGE":uploadModel.productDosageId
                                 };
     
     
@@ -221,9 +221,9 @@
                                 @"A_IMAGE_5":uploadModel.productImageArr[4],
                                 @"A_IMAGE_6":uploadModel.productImageArr[5],
                                 @"A_FACTORY_NAME":uploadModel.factory_name,
-                                @"A_INGREDIENT":uploadModel.productIngrendient,
-                                @"A_CODE":uploadModel.productCodeId,
-                                @"A_DOSAGE":uploadModel.productDosageId,
+//                                @"A_INGREDIENT":uploadModel.productIngrendient,
+//                                @"A_CODE":uploadModel.productCodeId,
+//                                @"A_DOSAGE":uploadModel.productDosageId,
                                 @"A_MOBILE":memberInfo.u_mobile
                                 };
     

@@ -20,12 +20,12 @@
 
 //信息
 @property (weak, nonatomic) IBOutlet UILabel *productStandardLabel;
-@property (weak, nonatomic) IBOutlet UILabel *productIngrendientLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *productIngrendientLabel;
 @property (weak, nonatomic) IBOutlet UILabel *factoryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *productPriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *productInventoryLabel;
-@property (weak, nonatomic) IBOutlet UILabel *productCodeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *productDosageLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *productCodeLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *productDosageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *productNHLabel;
 
 //未通过原因
@@ -158,12 +158,12 @@
     
     self.productNameLabel.text = self.tempCheckModel.A_NAME;
     self.productStandardLabel.text = self.tempCheckModel.A_STANDARD;
-    self.productIngrendientLabel.text = self.tempCheckModel.A_INGREDIENT;
+//    self.productIngrendientLabel.text = self.tempCheckModel.A_INGREDIENT;
     self.factoryLabel.text = self.tempCheckModel.A_FACTORY_NAME;
     self.productPriceLabel.text = [NSString stringWithFormat:@"￥%@元",self.tempCheckModel.A_PRICE_COST];
     self.productInventoryLabel.text = self.tempCheckModel.A_INVENTORY;
-    self.productCodeLabel.text = self.tempCheckModel.A_VALUE;
-    self.productDosageLabel.text = self.tempCheckModel.A_DOSAGE_VALUE;
+//    self.productCodeLabel.text = self.tempCheckModel.A_VALUE;
+//    self.productDosageLabel.text = self.tempCheckModel.A_DOSAGE_VALUE;
     self.productNHLabel.text = self.tempCheckModel.A_NH;
     
     self.noPassLabel.text = self.tempCheckModel.A_PROPOSAL;
@@ -174,10 +174,10 @@
 - (void)updateInfoUIFromSupplyList {
     self.productNameLabel.text = self.tempSupplyModel.A_NAME;
     self.productStandardLabel.text = self.tempSupplyModel.A_STANDARD;
-    self.productIngrendientLabel.text = self.tempSupplyModel.A_INGREDIENT;
+//    self.productIngrendientLabel.text = self.tempSupplyModel.A_INGREDIENT;
     self.factoryLabel.text = self.tempSupplyModel.A_MANUFACTOR;
-    self.productCodeLabel.text = self.tempSupplyModel.A_CODE_VALUE;
-    self.productDosageLabel.text = self.tempSupplyModel.A_DOSAGE_VALUE;
+//    self.productCodeLabel.text = self.tempSupplyModel.A_CODE_VALUE;
+//    self.productDosageLabel.text = self.tempSupplyModel.A_DOSAGE_VALUE;
     self.productNHLabel.text = self.tempSupplyModel.A_METHOD;
     
     self.noPassLabel.text = self.tempSupplyModel.A_PROPOSAL;

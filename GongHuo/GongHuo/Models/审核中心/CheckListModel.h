@@ -35,7 +35,7 @@
 @property(nonatomic,strong)NSString *A_VALUE;//分类value
 
 @property(nonatomic,strong)NSString *A_DOSAGE;//剂型id
-@property(nonatomic,strong)NSString *A_DOSAGE_VALUE;//分类value
+@property(nonatomic,strong)NSString *A_DOSAGE_VALUE;//剂型value
 
 @property(nonatomic,strong)NSString *A_NH;//简介
 

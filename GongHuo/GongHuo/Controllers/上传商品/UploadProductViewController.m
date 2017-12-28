@@ -41,7 +41,7 @@
 //规格textField2
 @property (weak, nonatomic) IBOutlet UITextField *standardTextFieldTwo;
 //成分textField
-@property (weak, nonatomic) IBOutlet UITextField *ingrendientTextField;
+//@property (weak, nonatomic) IBOutlet UITextField *ingrendientTextField;
 //厂家textField
 @property (weak, nonatomic) IBOutlet UITextField *factoryTextField;
 //报价textField
@@ -49,9 +49,9 @@
 //库存textField
 @property (weak, nonatomic) IBOutlet UITextField *inventoryTextField;
 //分类button
-@property (weak, nonatomic) IBOutlet UIButton *codeButton;
+//@property (weak, nonatomic) IBOutlet UIButton *codeButton;
 //剂量button
-@property (weak, nonatomic) IBOutlet UIButton *dosageButton;
+//@property (weak, nonatomic) IBOutlet UIButton *dosageButton;
 
 //简介
 @property (weak, nonatomic) IBOutlet PlaceholdTextView *HNTextView;
@@ -129,13 +129,13 @@
         self.uploadProductModel.productStandardTwo = [self.tempProductModel.A_STANDARD substringFromIndex:cutIndex.location+1];
         self.uploadProductModel.productStandardOne = [self.tempProductModel.A_STANDARD substringWithRange:NSMakeRange(cutIndex.location-1, 1)];
         
-        self.uploadProductModel.productIngrendient = self.tempProductModel.A_INGREDIENT;
+//        self.uploadProductModel.productIngrendient = self.tempProductModel.A_INGREDIENT;
         self.uploadProductModel.factory_name = self.tempProductModel.A_FACTORY_NAME;
         self.uploadProductModel.productPrice = self.tempProductModel.A_PRICE_COST;
         self.uploadProductModel.productInventory = self.tempProductModel.A_INVENTORY;
         self.uploadProductModel.product_NH = self.tempProductModel.A_NH;
-        self.uploadProductModel.productDosageId = self.tempProductModel.A_DOSAGE;
-        self.uploadProductModel.productCodeId = self.tempProductModel.A_CODE;
+//        self.uploadProductModel.productDosageId = self.tempProductModel.A_DOSAGE;
+//        self.uploadProductModel.productCodeId = self.tempProductModel.A_CODE;
         //刷新产品内容UI
         [self updateProductUI];
         
@@ -143,8 +143,8 @@
         //如果是上传产品，赋一些默认值
         self.uploadProductModel.productStandardOne = @"袋";//默认规格1
         self.uploadProductModel.productStandardTwo = @"件";//默认规格2
-        self.uploadProductModel.productCodeId = @"";
-        self.uploadProductModel.productDosageId = @"";
+//        self.uploadProductModel.productCodeId = @"";
+//        self.uploadProductModel.productDosageId = @"";
     }
     
     Manager *manager = [Manager shareInstance];
@@ -186,12 +186,12 @@
     self.standardTextFieldOne.text = [self.uploadProductModel.productStandard substringToIndex:cutIndex.location];
     self.standardTextFieldTwo.text = [self.uploadProductModel.productStandard substringFromIndex:cutIndex.location+1];
     
-    self.ingrendientTextField.text = self.uploadProductModel.productIngrendient;
+//    self.ingrendientTextField.text = self.uploadProductModel.productIngrendient;
     self.factoryTextField.text = self.uploadProductModel.factory_name;
     self.priceTextField.text = self.uploadProductModel.productPrice;
     self.inventoryTextField.text = self.uploadProductModel.productInventory;
-    [self.codeButton setTitle:self.tempProductModel.A_VALUE forState:UIControlStateNormal];
-    [self.dosageButton setTitle:self.tempProductModel.A_DOSAGE_VALUE forState:UIControlStateNormal];
+//    [self.codeButton setTitle:self.tempProductModel.A_VALUE forState:UIControlStateNormal];
+//    [self.dosageButton setTitle:self.tempProductModel.A_DOSAGE_VALUE forState:UIControlStateNormal];
     self.HNTextView.text = self.uploadProductModel.product_NH;
 }
 
@@ -232,55 +232,6 @@
 }
 
 
-#pragma mark - 分类 剂量 按钮 -
-- (IBAction)selectClassButtonAction:(UIButton *)sender {
-
-    if (self.classArr!= nil && self.classArr.count > 0) {
-        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:nil message:@"请选择产品分类" preferredStyle:UIAlertControllerStyleActionSheet];
-        for (int i = 0; i < self.classArr.count ; i++) {
-            ProductClassModel *tempModel = self.classArr[i];
-            UIAlertAction *action1 = [UIAlertAction actionWithTitle:tempModel.d_value style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                //给模型赋值
-                self.uploadProductModel.productCodeId = tempModel.d_code;
-                //给button赋值
-                NSLog(@"%@",tempModel.d_value);
-                [sender setTitle:tempModel.d_value forState:UIControlStateNormal];
-                [sender setTitleColor:k333333Color forState:UIControlStateNormal];
-                
-            }];
-            [alertC addAction:action1];
-        }
-        [self presentViewController:alertC animated:YES completion:nil];
-
-    }else {
-        NSLog(@"暂时没有分类");
-    }
-}
-- (IBAction)selectDosageButtonAction:(UIButton *)sender {
-    if (self.dosageArr!= nil && self.dosageArr.count > 0) {
-        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:nil message:@"请选择剂形" preferredStyle:UIAlertControllerStyleActionSheet];
-        for (int i = 0; i < self.dosageArr.count ; i++) {
-            DosageModel *tempModel = self.dosageArr[i];
-            UIAlertAction *action1 = [UIAlertAction actionWithTitle:tempModel.dosageValue style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                //给模型赋值
-                self.uploadProductModel.productDosageId = [NSString stringWithFormat:@"%@",tempModel.dosageID];
-                //给button赋值
-                NSLog(@"%@",tempModel.dosageValue);
-                [sender setTitle:tempModel.dosageValue forState:UIControlStateNormal];
-                [sender setTitleColor:k333333Color forState:UIControlStateNormal];
-
-                
-            }];
-            [alertC addAction:action1];
-        }
-        [self presentViewController:alertC animated:YES completion:nil];
-        
-    }else {
-        NSLog(@"暂时没有分类");
-    }
-
-}
-
 #pragma mark - 上传 -
 - (IBAction)submitUploadButtonAction:(UIButton *)sender {
     Manager *manager = [Manager shareInstance];
@@ -293,13 +244,13 @@
         errorStr = @"请填写产品的用法用量";
     }
     
-    if (self.uploadProductModel.productDosageId.length <= 0) {
-        errorStr = @"请选择剂型";
-    }
-    
-    if (self.uploadProductModel.productCodeId.length <= 0) {
-        errorStr = @"请选择分类";
-    }
+//    if (self.uploadProductModel.productDosageId.length <= 0) {
+//        errorStr = @"请选择剂型";
+//    }
+//
+//    if (self.uploadProductModel.productCodeId.length <= 0) {
+//        errorStr = @"请选择分类";
+//    }
     
     if (self.inventoryTextField.text.length > 0) {
         self.uploadProductModel.productInventory = self.inventoryTextField.text;
@@ -319,11 +270,11 @@
         errorStr = @"请输入厂家";
     }
     
-    if (self.ingrendientTextField.text.length > 0) {
-        self.uploadProductModel.productIngrendient = self.ingrendientTextField.text;
-    }else{
-        errorStr = @"请输入成分";
-    }
+//    if (self.ingrendientTextField.text.length > 0) {
+//        self.uploadProductModel.productIngrendient = self.ingrendientTextField.text;
+//    }else{
+//        errorStr = @"请输入成分";
+//    }
     
     if ([self.uploadProductModel.productImageArr[2] length] == 0) {
         errorStr = @"请上传PD证";
