@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="aXp-MS-Zup">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="aXp-MS-Zup">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -102,7 +102,7 @@
                                                         <rect key="frame" x="82" y="0.0" width="293" height="72"/>
                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     </textField>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -227,6 +227,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="hpG-v5-S4q" secondAttribute="trailing" id="73j-b7-Bcq"/>
                                     <constraint firstItem="hpG-v5-S4q" firstAttribute="leading" secondItem="GgG-rF-2ry" secondAttribute="leading" id="O4G-7e-nNA"/>
@@ -236,6 +237,7 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="jRi-QB-LpV" id="5yV-MJ-H5Y"/>
+                                    <outletCollection property="gestureRecognizers" destination="pAr-IQ-jT1" appends="YES" id="7Ja-Gi-c90"/>
                                 </connections>
                             </scrollView>
                         </subviews>
@@ -257,6 +259,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aKU-Np-ZLa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="pAr-IQ-jT1">
+                    <connections>
+                        <action selector="tapBackViewAction:" destination="jRi-QB-LpV" id="Ww4-zh-JkE"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="852" y="-904.49775112443785"/>
         </scene>
@@ -491,6 +498,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="0w9-xJ-iev" secondAttribute="trailing" id="0PR-j7-tv9"/>
                             <constraint firstAttribute="trailing" secondItem="nyf-Dp-8Cs" secondAttribute="trailing" id="A3j-Ri-Ngr"/>
@@ -505,6 +513,9 @@
                             <constraint firstItem="0w9-xJ-iev" firstAttribute="leading" secondItem="WXY-Qt-svZ" secondAttribute="leading" id="vpD-ZS-Qfu"/>
                             <constraint firstItem="jtU-ST-Zu1" firstAttribute="top" secondItem="nyf-Dp-8Cs" secondAttribute="bottom" constant="28" id="yz0-aP-8Mw"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="qRb-yc-vVe" appends="YES" id="haH-VH-HEm"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="注册" id="8Vr-RD-oYE">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="icon_back.png" id="mUe-Yt-bNx">
@@ -526,6 +537,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hYS-pD-JIv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="qRb-yc-vVe">
+                    <connections>
+                        <action selector="tapBackViewAction:" destination="LZd-ja-5wq" id="LsF-v2-wLu"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1920.8" y="-1388.4557721139431"/>
         </scene>
@@ -703,6 +719,7 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="0au-ad-3e5" firstAttribute="top" secondItem="OhO-of-pDD" secondAttribute="bottom" constant="10" id="1dO-70-BFq"/>
                             <constraint firstItem="pfK-hb-JbP" firstAttribute="top" secondItem="ZdF-YF-BDO" secondAttribute="bottom" constant="10" id="K0o-WO-BMm"/>
@@ -717,6 +734,9 @@
                             <constraint firstItem="OhO-of-pDD" firstAttribute="leading" secondItem="kIa-a0-sgM" secondAttribute="leading" id="pyv-Nq-bDT"/>
                             <constraint firstAttribute="trailing" secondItem="XPi-cQ-vil" secondAttribute="trailing" constant="45" id="yr5-au-3g4"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="D0G-Zh-HoM" appends="YES" id="Uxa-ju-Koe"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="注册" id="GsB-K1-jU8">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="icon_back.png" id="dCk-cS-Lqj">
@@ -737,6 +757,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3OD-8V-zAZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="D0G-Zh-HoM">
+                    <connections>
+                        <action selector="tapBackViewAction:" destination="yL5-FO-adm" id="nZh-BO-rLv"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2877.5999999999999" y="-1388.4557721139431"/>
         </scene>
@@ -859,6 +884,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="YUj-O7-AWJ" secondAttribute="trailing" id="3Mq-IJ-dna"/>
                             <constraint firstItem="z4n-fG-P0o" firstAttribute="top" secondItem="wk9-2x-xOe" secondAttribute="bottom" constant="15" id="3pe-Rs-yWk"/>
@@ -877,6 +903,9 @@
                             <constraint firstItem="JF8-BE-yG8" firstAttribute="leading" secondItem="exx-w4-B1B" secondAttribute="leading" id="kzp-in-XcB"/>
                             <constraint firstItem="JF8-BE-yG8" firstAttribute="top" secondItem="YUj-O7-AWJ" secondAttribute="bottom" constant="10" id="uSr-Ul-hWQ"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="CBG-pp-ncm" appends="YES" id="DxF-R1-X0y"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="注册" id="Wch-aw-NST">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="icon_back.png" id="81E-mD-uL1">
@@ -894,6 +923,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L1S-zJ-k8j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="CBG-pp-ncm">
+                    <connections>
+                        <action selector="tapBackViewAction:" destination="lUm-d1-r17" id="g6g-9O-ITd"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3736.8000000000002" y="-1388.4557721139431"/>
         </scene>
@@ -1048,6 +1082,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="SKn-b3-ggV" secondAttribute="trailing" id="6Mc-6M-E1w"/>
                             <constraint firstAttribute="trailing" secondItem="hPv-16-xsB" secondAttribute="trailing" id="BXK-ur-Qi2"/>
@@ -1059,6 +1094,9 @@
                             <constraint firstItem="hPv-16-xsB" firstAttribute="top" secondItem="Mx2-71-YW5" secondAttribute="bottom" constant="10" id="w8X-aw-U9j"/>
                             <constraint firstItem="5wH-TU-3sX" firstAttribute="top" secondItem="SKn-b3-ggV" secondAttribute="bottom" constant="30" id="xYR-oT-T3m"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="B7W-bh-7jx" appends="YES" id="IGu-wG-oUA"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="添加门市" id="kfb-Ol-kaW">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="icon_back.png" id="cXJ-Vd-Kpd">
@@ -1076,6 +1114,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Zj-M3-zPe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="B7W-bh-7jx">
+                    <connections>
+                        <action selector="tapBackViewAction:" destination="Vle-gW-nYu" id="qb6-t0-85N"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2837.5999999999999" y="-2094.6026986506749"/>
         </scene>
@@ -1186,6 +1229,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="6Z2-XS-FIh" firstAttribute="top" secondItem="fk6-XV-SnT" secondAttribute="bottom" id="DpM-0h-ILM"/>
                             <constraint firstItem="bCE-F6-THe" firstAttribute="leading" secondItem="Ck2-XK-qJ6" secondAttribute="leading" constant="45" id="SaL-tw-jx5"/>
@@ -1194,6 +1238,9 @@
                             <constraint firstItem="6Z2-XS-FIh" firstAttribute="leading" secondItem="Ck2-XK-qJ6" secondAttribute="leading" id="p7o-2x-zU3"/>
                             <constraint firstAttribute="trailing" secondItem="bCE-F6-THe" secondAttribute="trailing" constant="45" id="wpV-dg-2GA"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="blP-el-ffH" appends="YES" id="smh-jw-D9f"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="忘记密码" id="Ycu-xD-qfg">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="icon_back.png" id="9oV-ea-xXT">
@@ -1211,6 +1258,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Kb-7V-lrl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="blP-el-ffH">
+                    <connections>
+                        <action selector="tapBackViewAction:" destination="Hh2-kw-FUT" id="ayK-ca-Ho8"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1927" y="-663"/>
         </scene>
@@ -1298,6 +1350,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="e5C-WP-3Gn" firstAttribute="top" secondItem="QjK-n4-835" secondAttribute="bottom" id="1X8-h8-XzL"/>
                             <constraint firstItem="SAy-RK-3wK" firstAttribute="leading" secondItem="2w6-8k-A6h" secondAttribute="leading" constant="45" id="CQS-1H-Iyl"/>
@@ -1306,6 +1359,9 @@
                             <constraint firstAttribute="trailing" secondItem="SAy-RK-3wK" secondAttribute="trailing" constant="45" id="gkn-rN-hac"/>
                             <constraint firstItem="SAy-RK-3wK" firstAttribute="top" secondItem="e5C-WP-3Gn" secondAttribute="bottom" constant="53" id="k9H-nh-jVG"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="ot6-7M-KIa" appends="YES" id="Ocv-VC-J9R"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="忘记密码" id="AuV-8I-s1I">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="icon_back.png" id="DEX-dS-iO2">
@@ -1321,6 +1377,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hdg-59-Lym" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="ot6-7M-KIa">
+                    <connections>
+                        <action selector="tapBackViewAction:" destination="OmF-EL-19e" id="6hK-zH-bF8"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3148" y="-662"/>
         </scene>
@@ -1487,9 +1548,13 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JM8-tf-czz">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Yp-2D-dNl" userLabel="backView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <view alpha="0.29999999999999999" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Yp-2D-dNl" userLabel="backView">
+                                <rect key="frame" x="0.0" y="169" width="375" height="498"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="BJV-ze-E5R" appends="YES" id="2DH-Mn-25t"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Al0-MJ-tpA" userLabel="alertOne">
                                 <rect key="frame" x="15" y="208.5" width="345" height="250"/>
@@ -1874,6 +1939,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6sm-Kk-DmJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="BJV-ze-E5R">
+                    <connections>
+                        <action selector="tapBackViewAction:" destination="rx9-PA-hBN" id="HhS-vU-4I7"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-1922.4000000000001" y="-713.79310344827593"/>
         </scene>
@@ -3782,6 +3852,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="pbZ-Rv-jjJ" firstAttribute="leading" secondItem="lqK-a4-90w" secondAttribute="leading" id="5dn-Qc-SZm"/>
                                     <constraint firstItem="pbZ-Rv-jjJ" firstAttribute="width" secondItem="lqK-a4-90w" secondAttribute="width" id="8L8-nU-T4q"/>
@@ -3789,6 +3860,10 @@
                                     <constraint firstAttribute="bottom" secondItem="pbZ-Rv-jjJ" secondAttribute="bottom" id="V7u-Of-oNI"/>
                                     <constraint firstAttribute="trailing" secondItem="pbZ-Rv-jjJ" secondAttribute="trailing" id="ank-xo-Mef"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="Jhf-iz-SWz" id="RDb-07-dGZ"/>
+                                    <outletCollection property="gestureRecognizers" destination="dZg-VG-aVN" appends="YES" id="O6z-h8-1pj"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3827,6 +3902,11 @@
                 <tapGestureRecognizer id="3k9-Gr-TQJ">
                     <connections>
                         <action selector="uploadSendCerTapAction:" destination="Jhf-iz-SWz" id="LHR-io-qYQ"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="dZg-VG-aVN">
+                    <connections>
+                        <action selector="tapBackView:" destination="Jhf-iz-SWz" id="ptp-Wz-zNL"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -4851,6 +4931,7 @@
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="IXJ-r8-rHt" secondAttribute="bottom" id="CGW-09-Qr8"/>
                                     <constraint firstItem="IXJ-r8-rHt" firstAttribute="top" secondItem="f1V-Si-cNl" secondAttribute="top" id="PnP-Sl-pIe"/>
@@ -4858,6 +4939,9 @@
                                     <constraint firstAttribute="trailing" secondItem="IXJ-r8-rHt" secondAttribute="trailing" id="cYy-2B-3nr"/>
                                     <constraint firstItem="IXJ-r8-rHt" firstAttribute="leading" secondItem="f1V-Si-cNl" secondAttribute="leading" id="xaE-hg-LuM"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="sd6-tQ-baU" appends="YES" id="f21-H9-Dd8"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <constraints>
@@ -4887,6 +4971,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yL3-dx-euY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="sd6-tQ-baU">
+                    <connections>
+                        <action selector="tapBackView:" destination="KQm-Nc-0nf" id="hLS-ka-gS4"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1492" y="2660.4197901049479"/>
         </scene>
@@ -5033,6 +5122,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="QYB-Rb-xNS" firstAttribute="leading" secondItem="xTH-xD-wKQ" secondAttribute="leading" constant="45" id="BVM-DV-6N4"/>
                             <constraint firstAttribute="trailing" secondItem="gAg-23-n4z" secondAttribute="trailing" id="E9E-JD-C1O"/>
@@ -5044,6 +5134,9 @@
                             <constraint firstAttribute="trailing" secondItem="QYB-Rb-xNS" secondAttribute="trailing" constant="45" id="tAd-s5-cy8"/>
                             <constraint firstItem="QYB-Rb-xNS" firstAttribute="top" secondItem="gAg-23-n4z" secondAttribute="bottom" constant="50" id="vJy-iZ-8uH"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="15g-Im-CL2" appends="YES" id="dIB-At-r5a"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="修改密码" id="dAR-tu-Fsj">
                         <barButtonItem key="leftBarButtonItem" image="icon_back.png" id="S78-q3-mVv">
@@ -5062,6 +5155,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MsI-Al-kSN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="15g-Im-CL2">
+                    <connections>
+                        <action selector="tapBackViewAction:" destination="Lpa-bz-28O" id="aMT-7p-UvO"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2750.625" y="2660.9154929577467"/>
         </scene>
@@ -5185,6 +5283,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Yy9-VC-GQU" firstAttribute="top" secondItem="cG6-V9-LeK" secondAttribute="bottom" id="2Fe-Qt-xL5"/>
                             <constraint firstItem="Oqi-X8-3Y1" firstAttribute="top" secondItem="LHx-qt-boK" secondAttribute="bottom" constant="50" id="5IJ-N1-tea"/>
@@ -5196,6 +5295,9 @@
                             <constraint firstItem="Yy9-VC-GQU" firstAttribute="leading" secondItem="Mzg-oK-Hle" secondAttribute="leading" id="qfu-fN-K45"/>
                             <constraint firstAttribute="trailing" secondItem="Yy9-VC-GQU" secondAttribute="trailing" id="uZp-7w-kId"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="H5O-NT-Wn1" appends="YES" id="CCU-du-G52"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="修改密码" id="d4C-J4-AVa">
                         <barButtonItem key="leftBarButtonItem" image="icon_back.png" id="1f5-Oq-ku7">
@@ -5212,6 +5314,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="npu-oM-PVh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="H5O-NT-Wn1">
+                    <connections>
+                        <action selector="tapBackViewAction:" destination="gLC-UU-kQj" id="Rae-PT-5wO"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2750.625" y="3443.6619718309857"/>
         </scene>
@@ -5679,6 +5786,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="Taw-P7-SOS" firstAttribute="centerX" secondItem="yPP-bm-Da0" secondAttribute="centerX" id="2js-EC-fvK"/>
                                     <constraint firstItem="Taw-P7-SOS" firstAttribute="top" secondItem="yPP-bm-Da0" secondAttribute="top" id="8xG-mC-CbJ"/>
@@ -5686,6 +5794,10 @@
                                     <constraint firstItem="Taw-P7-SOS" firstAttribute="leading" secondItem="yPP-bm-Da0" secondAttribute="leading" id="JDB-c9-Rvb"/>
                                     <constraint firstAttribute="bottom" secondItem="Taw-P7-SOS" secondAttribute="bottom" id="R4Y-HF-boR"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="0N9-YI-jtq" id="gKc-cj-HAI"/>
+                                    <outletCollection property="gestureRecognizers" destination="34x-th-dCg" appends="YES" id="98k-WS-0GC"/>
+                                </connections>
                             </scrollView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Nj-X5-0lL" userLabel="alertView">
                                 <rect key="frame" x="0.0" y="168.5" width="375" height="330"/>
@@ -5786,6 +5898,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lxB-wt-x0h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="34x-th-dCg">
+                    <connections>
+                        <action selector="tapBackViewAction:" destination="0N9-YI-jtq" id="dWe-8D-mW3"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1927.5" y="750"/>
         </scene>

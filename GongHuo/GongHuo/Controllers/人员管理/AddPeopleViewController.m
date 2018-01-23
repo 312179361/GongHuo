@@ -327,6 +327,24 @@
 }
 
 
+#pragma mark - 键盘消失 -
+
+- (IBAction)tapBackView:(UITapGestureRecognizer *)sender {
+    [self keyboardDismiss];
+}
+
+
+
+- (void)keyboardDismiss {
+    [self.nameTextField resignFirstResponder];
+    [self.phoneTextField resignFirstResponder];
+    [self.cardPeopleTextField resignFirstResponder];
+    [self.cardNoTextField resignFirstResponder];
+
+    
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

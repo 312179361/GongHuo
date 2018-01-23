@@ -333,6 +333,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - 键盘消失 -
+
+- (IBAction)tapBackViewAction:(UITapGestureRecognizer *)sender {
+    [self keyboardDismissAction];
+}
+- (void)keyboardDismissAction {
+    [self.codeTextField resignFirstResponder];
+    [self.promoterTextField resignFirstResponder];
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation

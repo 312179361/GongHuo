@@ -139,6 +139,9 @@
     
 }
 
+- (IBAction)tapBackViewAction:(UITapGestureRecognizer *)sender {
+    [self.codeTextField resignFirstResponder];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

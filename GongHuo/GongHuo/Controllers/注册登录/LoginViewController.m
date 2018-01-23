@@ -32,6 +32,9 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    [self keyboardDismissAction];
+
     [SVProgressHUD dismiss];
     
     //显示Navigate
@@ -105,6 +108,19 @@
 //跳转到注册界面
 - (IBAction)registerButtonAction:(UIButton *)sender {
     [self performSegueWithIdentifier:@"loginToRegisterOneVC" sender:nil];
+}
+
+- (IBAction)tapBackViewAction:(UITapGestureRecognizer *)sender {
+    [self keyboardDismissAction];
+
+    
+}
+
+#pragma mark - 键盘消失 -
+- (void)keyboardDismissAction {
+    [self.mobileTextField resignFirstResponder];
+    [self.passwordTextField resignFirstResponder];
+    
 }
 
 

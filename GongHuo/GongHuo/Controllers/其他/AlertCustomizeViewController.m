@@ -61,6 +61,8 @@
 
 //不代理按钮
 - (IBAction)noDelegateBtnAction:(UIButton *)sender {
+    [self keyboardDismissAction];
+    
     if (self.selectShelfInt != 0) {
         self.selectShelfInt = 0;
         //更改UI
@@ -70,6 +72,8 @@
     }
 }
 - (IBAction)stockBtnAction:(UIButton *)sender {
+    [self keyboardDismissAction];
+    
     if (self.selectShelfInt != 1) {
         self.selectShelfInt = 1;
         //更改UI
@@ -79,6 +83,8 @@
     }
 }
 - (IBAction)otherBtnAction:(UIButton *)sender {
+    [self keyboardDismissAction];
+    
     if (self.selectShelfInt != 2) {
         self.selectShelfInt = 2;
         //更改UI
@@ -89,6 +95,7 @@
 }
 //确定按钮
 - (IBAction)alertOneEnterBtnAction:(UIButton *)sender {
+    [self keyboardDismissAction];
     
     NSDictionary *enterBlockDic = @{@"reasonInt":[NSString stringWithFormat:@"%ld",self.selectShelfInt],
       @"reasonStr":self.reasonTextView.text};
@@ -98,6 +105,7 @@
 
 }
 - (IBAction)alertOneCloseBtnAction:(UIButton *)sender {
+    [self keyboardDismissAction];
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
@@ -114,12 +122,16 @@
 }
 //减少
 - (IBAction)lessBtnAction:(UIButton *)sender {
+    [self keyboardDismissAction];
+    
     NSInteger numberTextInt = [self.numberTextField.text integerValue];
     numberTextInt--;
     self.numberTextField.text = [NSString stringWithFormat:@"%ld", numberTextInt];
 }
 //增加
 - (IBAction)addBtnAction:(UIButton *)sender {
+    [self keyboardDismissAction];
+    
     NSInteger numberTextInt = [self.numberTextField.text integerValue];
     numberTextInt++;
     self.numberTextField.text = [NSString stringWithFormat:@"%ld", numberTextInt];
@@ -127,6 +139,8 @@
 }
 
 - (IBAction)alertTwoEnterBtnAction:(UIButton *)sender {
+    [self keyboardDismissAction];
+    
     AlertManager *alertM = [AlertManager shareIntance];
     
     if ( self.numberTextField.text != self.oldNumberStr) {
@@ -139,6 +153,7 @@
 }
 
 - (IBAction)alertTwoCloseBtnAction:(UIButton *)sender {
+    [self keyboardDismissAction];
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
@@ -179,7 +194,17 @@
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
+#pragma mark - 键盘消失 -
+- (IBAction)tapBackViewAction:(UITapGestureRecognizer *)sender {
+    [self keyboardDismissAction];
+}
 
+- (void)keyboardDismissAction {
+    [self.reasonTextView resignFirstResponder];
+    [self.numberTextField resignFirstResponder];
+    
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

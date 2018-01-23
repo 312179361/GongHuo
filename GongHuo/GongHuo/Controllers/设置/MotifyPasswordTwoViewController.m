@@ -80,6 +80,14 @@
     
 }
 
+#pragma mark - 键盘消失 -
+- (IBAction)tapBackViewAction:(UITapGestureRecognizer *)sender {
+    
+    [self.passwordTextField resignFirstResponder];
+    [self.passwordTwoTextField resignFirstResponder];
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

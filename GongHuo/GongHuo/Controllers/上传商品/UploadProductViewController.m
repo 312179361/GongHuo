@@ -13,7 +13,7 @@
 #import "SelectFormatViewController.h"
 #import "SelectProductImageViewController.h"
 #import "NewsViewController.h"
-@interface UploadProductViewController ()
+@interface UploadProductViewController ()<UIScrollViewDelegate>
 //头部约束
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headLayout;
 @property (weak, nonatomic) IBOutlet UIView *noImgBackView;
@@ -352,7 +352,25 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - 键盘消失 -
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self keybordDismissAction];
+}
+- (IBAction)tapBackViewAction:(UITapGestureRecognizer *)sender {
+    [self keybordDismissAction];
+}
 
+- (void)keybordDismissAction {
+    [self.nameTextField resignFirstResponder];
+    
+    [self.standardTextFieldOne resignFirstResponder];
+    [self.standardTextFieldTwo resignFirstResponder];
+    [self.factoryTextField resignFirstResponder];
+    [self.priceTextField resignFirstResponder];
+    [self.inventoryTextField resignFirstResponder];
+
+    [self.HNTextView resignFirstResponder];
+}
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation

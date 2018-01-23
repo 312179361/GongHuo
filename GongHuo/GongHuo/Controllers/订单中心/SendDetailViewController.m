@@ -12,7 +12,7 @@
 #import "PlaceholdTextView.h"
 #import "SendCerViewController.h"
 #import "UIImageView+ImageViewCategory.h"
-@interface SendDetailViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface SendDetailViewController ()<UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 //view1
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;//收货人地址
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;//收货人姓名
@@ -56,6 +56,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [SVProgressHUD dismiss];
+    [self keyboardDismissAction];
 }
 
 - (void)updateViewOne {
@@ -208,6 +209,20 @@
     
     
    
+}
+
+#pragma mark - 键盘消失 -
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self keyboardDismissAction];
+
+}
+
+- (IBAction)tapBackView:(UITapGestureRecognizer *)sender {
+    [self keyboardDismissAction];
+}
+
+- (void)keyboardDismissAction {
+    [self.sendReMarkTextView resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
