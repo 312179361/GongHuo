@@ -1394,6 +1394,7 @@
 				TargetAttributes = {
 					4574C16A1F074B990009C5F5 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = JRH48P873J;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -1795,16 +1796,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Mingzhu Jiang (6P73W6477C)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhengzhou Agricultural Science and Technology Co., Ltd (JRH48P873J)";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = JRH48P873J;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GongHuo/PrefixHeader.pch";
 				INFOPLIST_FILE = GongHuo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhennong.GongHuo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = DeviceDevelopProfile;
+				PROVISIONING_PROFILE_SPECIFIER = GonghuoDistribution;
 			};
 			name = Debug;
 		};
@@ -1813,16 +1814,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Mingzhu Jiang (6P73W6477C)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhengzhou Agricultural Science and Technology Co., Ltd (JRH48P873J)";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = JRH48P873J;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GongHuo/PrefixHeader.pch";
 				INFOPLIST_FILE = GongHuo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhennong.GongHuo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = DeviceDevelopProfile;
+				PROVISIONING_PROFILE_SPECIFIER = GonghuoDistribution;
 			};
 			name = Release;
 		};
