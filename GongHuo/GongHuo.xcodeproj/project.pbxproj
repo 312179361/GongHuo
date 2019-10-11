@@ -637,6 +637,13 @@
 			path = TLTextViewPlacehold;
 			sourceTree = "<group>";
 		};
+		451A945921B6660700459937 /* 测试 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "测试";
+			sourceTree = "<group>";
+		};
 		452A3A831FA06DAA00C3E48D /* MJRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -980,6 +987,7 @@
 		4574C1861F074BCF0009C5F5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				451A945921B6660700459937 /* 测试 */,
 				4574C18A1F074C540009C5F5 /* RootViewController.h */,
 				4574C18B1F074C540009C5F5 /* RootViewController.m */,
 				45B8C0281F0A32A500F21C55 /* 上传商品 */,
